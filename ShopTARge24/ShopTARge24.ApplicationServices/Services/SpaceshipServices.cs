@@ -1,4 +1,5 @@
-﻿using ShopTARge24.ApplicationServices.Services.Dto;
+﻿using Microsoft.EntityFrameworkCore;
+using ShopTARge24.ApplicationServices.Services.Dto;
 using ShopTARge24.Core.Domain;
 using ShopTARge24.Core.ServiceInterface;
 using ShopTARge24.Data;
@@ -31,6 +32,14 @@ namespace ShopTARge24.ApplicationServices.Services
             await _context.SaveChangesAsync();
 
             return spaceships;
+        }
+
+        public async Task<Spaceships> DetailAsync(Guid id)
+        {
+            var result = await _context.Spaceships
+                .FirstOrDefaultAsync(x => x.Id == id);
+
+            return result;
         }
     }
 }
