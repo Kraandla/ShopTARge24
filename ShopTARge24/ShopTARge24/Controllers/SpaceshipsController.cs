@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using ShopTARge24.ApplicationServices.Services.Dto;
+using ShopTARge24.Core.ServiceInterface;
 using ShopTARge24.Data;
 using ShopTARge24.Models.Spaceships;
 
@@ -7,13 +9,16 @@ namespace ShopTARge24.Controllers
     public class SpaceshipsController : Controller
     {
         private readonly ShopTARge24Context _context;
+        private readonly ISpaceshipServices _spaceshipServices;
 
         public SpaceshipsController
             (
-                ShopTARge24Context context
+                ShopTARge24Context context,
+                ISpaceshipServices spaceshipServices
             )
         {
             _context = context;
+            _spaceshipServices = spaceshipServices;
         }
 
 
@@ -40,11 +45,29 @@ namespace ShopTARge24.Controllers
             return View("Create", result);
         }
 
-        //[HttpPost]
-        //public async Task<IActionResult> Create()
-        //{
+        [HttpPost]
+        public async Task<IActionResult> Create(SpaceshipCreateViewModel vm)
+        {
+            var dto = new SpaceshipDto()
+            {
+                Id = vm.Id,
+                Name = vm.Name,
+                Classification = vm.Classification,
+                BuiltDate = vm.BuiltDate,
+                Crew = vm.Crew,
+                EnginePower = vm.EnginePower,
+                CreatedAt = vm.CreatedAt,
+                ModifiedAt = vm.ModifiedAt
+            };
 
-        //    return RedirectToAction(nameof(Index));
-        //}
+            var result = await _spaceshipServices.Create(dto);
+
+            if (result == null)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+
+            return RedirectToAction(nameof(Index));
+        }
     }
 }

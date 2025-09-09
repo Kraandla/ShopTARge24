@@ -1,0 +1,15 @@
+﻿namespace ShopTARge24.ApplicationServices.Services.Dto
+{
+    public class SpaceshipDto
+    {
+        public Guid? Id { get; set; }
+        public string? Name { get; set; }
+        public string? Classification { get; set; }
+        public DateTime? CreatedAt { get; set; }
+        public DateTime? BuiltDate { get; set; }
+        public DateTime? ModifiedAt { get; set; }
+        public int? Crew { get; set; }
+        public int? EnginePower { get; set; }
+
+    }
+}
