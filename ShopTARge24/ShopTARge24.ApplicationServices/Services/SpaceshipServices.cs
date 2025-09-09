@@ -1,0 +1,14 @@
+﻿using ShopTARge24.Data;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ShopTARge24.ApplicationServices.Services
+{
+    internal class SpaceshipServices
+    {
+        private readonly ShopTARge24Context;
+    }
+}
