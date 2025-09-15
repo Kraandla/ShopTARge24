@@ -1,11 +1,9 @@
-﻿using Microsoft.AspNetCore.Http.HttpResults;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using ShopTARge24.ApplicationServices.Services.Dto;
-using ShopTARge24.Core.Domain;
+﻿using Microsoft.AspNetCore.Mvc;
+using ShopTARge24.Core.Dto;
 using ShopTARge24.Core.ServiceInterface;
 using ShopTARge24.Data;
 using ShopTARge24.Models.Spaceships;
+
 
 namespace ShopTARge24.Controllers
 {
@@ -48,6 +46,7 @@ namespace ShopTARge24.Controllers
             return View("Create", result);
         }
 
+
         [HttpPost]
         public async Task<IActionResult> Create(SpaceshipCreateViewModel vm)
         {
@@ -73,7 +72,6 @@ namespace ShopTARge24.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-
         [HttpGet]
         public async Task<IActionResult> Delete(Guid id)
         {
@@ -87,13 +85,13 @@ namespace ShopTARge24.Controllers
             var vm = new SpaceshipDeleteViewModel();
 
             vm.Id = spaceship.Id;
-                vm.Name = spaceship.Name;
-                vm.Classification = spaceship.Classification;
-                vm.BuiltDate = spaceship.BuiltDate;
-                vm.Crew = spaceship.Crew;
-                vm.EnginePower = spaceship.EnginePower;
-                vm.CreatedAt = spaceship.CreatedAt;
-                vm.ModifiedAt = spaceship.ModifiedAt;
+            vm.Name = spaceship.Name;
+            vm.Classification = spaceship.Classification;
+            vm.BuiltDate = spaceship.BuiltDate;
+            vm.Crew = spaceship.Crew;
+            vm.EnginePower = spaceship.EnginePower;
+            vm.CreatedAt = spaceship.CreatedAt;
+            vm.ModifiedAt = spaceship.ModifiedAt;
 
             return View(vm);
         }

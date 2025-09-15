@@ -1,8 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using ShopTARge24.ApplicationServices.Services.Dto;
 using ShopTARge24.Core.Domain;
+using ShopTARge24.Core.Dto;
 using ShopTARge24.Core.ServiceInterface;
 using ShopTARge24.Data;
+
 
 namespace ShopTARge24.ApplicationServices.Services
 {
@@ -10,13 +11,16 @@ namespace ShopTARge24.ApplicationServices.Services
     {
         private readonly ShopTARge24Context _context;
 
-        public SpaceshipServices(ShopTARge24Context context)
+        public SpaceshipServices
+            (
+                ShopTARge24Context context
+            )
         {
             _context = context;
         }
 
         public async Task<Spaceships> Create(SpaceshipDto dto)
-        { 
+        {
             Spaceships spaceships = new Spaceships();
 
             spaceships.Id = Guid.NewGuid();
