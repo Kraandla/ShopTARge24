@@ -4,7 +4,6 @@ using ShopTARge24.Core.Dto;
 using ShopTARge24.Core.ServiceInterface;
 using ShopTARge24.Data;
 using ShopTARge24.Models.Kindergarten;
-using ShopTARge24.Models.Spaceships;
 
 namespace ShopTARge24.Controllers
 {
@@ -108,5 +107,31 @@ namespace ShopTARge24.Controllers
 
             return RedirectToAction(nameof(Index));
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Details(Guid id)
+        {
+            //kasutada service classi meetodit, et info k'tte saada
+            var kindergarten = await _KindergartenServices.DetailAsync(id);
+
+            if (kindergarten == null)
+            {
+                return NotFound();
+            }
+
+            //toimub viewModeliga mappimine
+            var vm = new KindergartenDetailsViewModel();
+
+            vm.Id = kindergarten.Id;
+            vm.KindergartenName = kindergarten.KindergartenName;
+            vm.GroupName = kindergarten.GroupName;
+            vm.TeacherName = kindergarten.TeacherName;
+            vm.ChildCount = kindergarten.ChildCount;
+            vm.CreatedAt = kindergarten.CreatedAt;
+            vm.UpdatedAt = kindergarten.UpdatedAt;
+
+            return View(vm);
+        }
     }
 }
+
