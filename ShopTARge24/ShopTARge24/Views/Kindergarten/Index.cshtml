@@ -1,4 +1,4 @@
-﻿@model IEnumerable<ShopTARge24.Models.Spaceships.SpaceshipIndexViewModel>
+﻿@model IEnumerable<ShopTARge24.Models.Kindergarten.KindergartenIndexViewModel>
 
 @{
     int rowNumber = 1;
@@ -9,7 +9,7 @@
 </div>
 
 <div class="h1">
-    Spaceships
+    Kindergartens
 </div>
 <form method="get">
     <table class="table table-hover">
@@ -18,8 +18,8 @@
                 <th scope="col">Nr</th>
                 <th scope="col">Kindergarten Name</th>
                 <th scope="col">Group Name</th>
-                <th scope="col">Teacher Name</th>
                 <th scope="col">Child Count</th>
+                <th scope="col">Created at</th>
                 <th scope="col"></th>
             </tr>
         </thead>
@@ -28,10 +28,10 @@
             {
                 <tr>
                     <td>@rowNumber</td>
-                    <td>@Kindergarten.Name</td>
-                    <td>@Kindergarten.Classification</td>
-                    <td>@Kindergarten.BuiltDate</td>
-                    <td>@Kindergarten.Crew</td>
+                    <td>@Kindergarten.KindergartenName</td>
+                    <td>@Kindergarten.GroupName</td>
+                    <td>@Kindergarten.ChildCount</td>
+                    <td>@Kindergarten.CreatedAt</td>
                     <td>
                         <a asp-action="details" asp-controller="Kindergarten" asp-route-id="@Kindergarten.Id" class="btn btn-primary">Details</a>
                         <a asp-action="update" asp-controller="Kindergarten" asp-route-id="@Kindergarten.Id" class="btn btn-primary">Update</a>
