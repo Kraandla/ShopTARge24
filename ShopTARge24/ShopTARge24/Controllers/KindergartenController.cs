@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using ShopTARge24.ApplicationServices.Services;
+using ShopTARge24.Core.Dto;
 using ShopTARge24.Core.ServiceInterface;
 using ShopTARge24.Data;
 using ShopTARge24.Models.Kindergarten;
@@ -35,6 +37,39 @@ namespace ShopTARge24.Controllers
                 });
 
             return View(result);
+        }
+
+        [HttpGet]
+        public IActionResult Create()
+        {
+            KindergartenCreateUpdateViewModel result = new();
+
+            return View("CreateUpdate", result);
+        }
+
+
+        [HttpPost]
+        public async Task<IActionResult> Create(KindergartenCreateUpdateViewModel vm)
+        {
+            var dto = new KindergartenDto()
+            {
+                Id = vm.Id,
+                KindergartenName = vm.KindergartenName,
+                GroupName = vm.GroupName,
+                TeacherName = vm.TeacherName,
+                ChildCount = vm.ChildCount,
+                CreatedAt = vm.CreatedAt,
+                UpdatedAt = vm.UpdatedAt
+            };
+
+            var result = await _KindergartenServices.Create(dto);
+
+            if (result == null)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+
+            return RedirectToAction(nameof(Index));
         }
     }
 }
