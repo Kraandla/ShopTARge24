@@ -1,5 +1,46 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model IEnumerable<ShopTARge24.Models.Spaceships.SpaceshipIndexViewModel>
+
 @{
+    int rowNumber = 1;
 }
+
+<div>
+    <a asp-action="create" asp-controller="Kindergarten" type="submit" class="btn btn-primary">Create</a>
+</div>
+
+<div class="h1">
+    Spaceships
+</div>
+<form method="get">
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th scope="col">Nr</th>
+                <th scope="col">Kindergarten Name</th>
+                <th scope="col">Group Name</th>
+                <th scope="col">Teacher Name</th>
+                <th scope="col">Child Count</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var Kindergarten in Model)
+            {
+                <tr>
+                    <td>@rowNumber</td>
+                    <td>@Kindergarten.Name</td>
+                    <td>@Kindergarten.Classification</td>
+                    <td>@Kindergarten.BuiltDate</td>
+                    <td>@Kindergarten.Crew</td>
+                    <td>
+                        <a asp-action="details" asp-controller="Kindergarten" asp-route-id="@Kindergarten.Id" class="btn btn-primary">Details</a>
+                        <a asp-action="update" asp-controller="Kindergarten" asp-route-id="@Kindergarten.Id" class="btn btn-primary">Update</a>
+                        <a asp-action="delete" asp-controller="Kindergarten" asp-route-id="@Kindergarten.Id" class="btn btn-outline-danger">Delete</a>
+                    </td>
+                </tr>
+                rowNumber += 1;
+            }
+        </tbody>
+    </table>
+</form>
+
