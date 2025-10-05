@@ -8,7 +8,7 @@
 
         public DateTime? ModifiedAt { get; set; }
 
-        public string? Area { get; set; }
+        public double? Area { get; set; }
 
         public string? Location { get; set; }
 
