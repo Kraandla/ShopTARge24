@@ -18,7 +18,7 @@ namespace ShopTARge24.Controllers
         public RealEstateController
     (
         ShopTARge24Context context,
-        IRealEstateServices realEstateServices,
+        IRealEstateServices realEstateServices
     )
         {
             _context = context;
