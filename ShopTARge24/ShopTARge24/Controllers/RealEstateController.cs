@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using ShopTARge24.ApplicationServices.Services;
 using ShopTARge24.Core.ServiceInterface;
 using ShopTARge24.Data;
@@ -34,6 +35,30 @@ namespace ShopTARge24.Controllers
                 });
 
             return View(result);
+        }
+
+        public async Task<IActionResult> Details(Guid id)
+        {
+            //kasutada service classi meetodit, et info k'tte saada
+            var realEstate = await _realEstateServices.DetailAsync(id);
+
+            if (realEstate == null)
+            {
+                return NotFound();
+            }
+
+
+            var vm = new RealEstateDetailsViewModel();
+
+            vm.Id = realEstate.Id;
+            vm.Area = realEstate.Area;
+            vm.Location = realEstate.Location;
+            vm.RoomNumber = realEstate.RoomNumber;
+            vm.BuildingType = realEstate.BuildingType;
+            vm.CreatedAt = realEstate.CreatedAt;
+            vm.ModifiedAt = realEstate.ModifiedAt;
+
+            return View(vm);
         }
     }
 }
