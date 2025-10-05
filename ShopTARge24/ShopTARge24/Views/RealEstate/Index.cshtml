@@ -1,1 +1,45 @@
-﻿RealEstate test
+﻿@model IEnumerable<ShopTARge24.Models.Spaceships.SpaceshipIndexViewModel>
+
+@{
+    int rowNumber = 1;
+}
+
+<div>
+    <a asp-action="create" asp-controller="RealEstate" type="submit" class="btn btn-primary">Create</a>
+</div>
+
+<div class="h1">
+    Real Estates
+</div>
+<form method="get">
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th scope="col">Nr</th>
+                <th scope="col">Area</th>
+                <th scope="col">Location</th>
+                <th scope="col">Room number</th>
+                <th scope="col">Building type</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var spaceship in Model)
+            {
+                <tr>
+                    <td>@rowNumber</td>
+                    <td>@realestates.Area</td>
+                    <td>@realestates.Location</td>
+                    <td>@realestates.RoomNumber</td>
+                    <td>@realestates.BuildingType</td>
+                    <td>
+                        <a asp-action="details" asp-controller="spaceships" asp-route-id="@realestates.Id" class="btn btn-primary">Details</a>
+                        <a asp-action="update" asp-controller="spaceships" asp-route-id="@realestates.Id" class="btn btn-primary">Update</a>
+                        <a asp-action="delete" asp-controller="spaceships" asp-route-id="@realestates.Id" class="btn btn-outline-danger">Delete</a>
+                    </td>
+                </tr>
+                rowNumber += 1;
+            }
+        </tbody>
+    </table>
+</form>
