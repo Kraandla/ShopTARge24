@@ -153,7 +153,7 @@ namespace ShopTARge24.Controllers
                 return NotFound();
             }
 
-            var vm = new RealEstateCreateUpdateViewModel();
+            var vm = new RealEstateDeleteViewModel();
 
             vm.Id = realEstate.Id;
             vm.Area = realEstate.Area;
