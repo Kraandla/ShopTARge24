@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ShopTARge24.ApplicationServices.Services;
+using ShopTARge24.Core.Domain;
 using ShopTARge24.Core.Dto;
 using ShopTARge24.Core.ServiceInterface;
 using ShopTARge24.Data;
@@ -86,6 +87,53 @@ namespace ShopTARge24.Controllers
             };
 
             var result = await _realEstateServices.Create(dto);
+
+            if (result == null)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+
+            return RedirectToAction(nameof(Index));
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Update(Guid id)
+        {
+            var realEstate = await _realEstateServices.DetailAsync(id);
+
+            if (realEstate == null)
+            {
+                return NotFound();
+            }
+
+            var vm = new RealEstateCreateUpdateViewModel();
+
+            vm.Id = realEstate.Id;
+            vm.Area = realEstate.Area;
+            vm.Location = realEstate.Location;
+            vm.RoomNumber = realEstate.RoomNumber;
+            vm.BuildingType = realEstate.BuildingType;
+            vm.CreatedAt = realEstate.CreatedAt;
+            vm.ModifiedAt = realEstate.ModifiedAt;
+
+            return View("CreateUpdate", vm);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Update(RealEstateCreateUpdateViewModel vm)
+        {
+            var dto = new RealEstateDto()
+            {
+                Id = vm.Id,
+                Area = vm.Area,
+                Location = vm.Location,
+                RoomNumber = vm.RoomNumber,
+                BuildingType = vm.BuildingType,
+                CreatedAt = vm.CreatedAt,
+                ModifiedAt = vm.ModifiedAt,
+            };
+
+            var result = await _realEstateServices.Update(dto);
 
             if (result == null)
             {
