@@ -46,7 +46,7 @@ namespace ShopTARge24.ApplicationServices.Services
             domain.Location = dto.Location;
             domain.RoomNumber = dto.RoomNumber;
             domain.BuildingType = dto.BuildingType;
-            domain.CreatedAt = DateTime.Now;
+            domain.CreatedAt = dto.CreatedAt;
             domain.ModifiedAt = DateTime.Now;
 
             _context.RealEstates.Update(domain);
