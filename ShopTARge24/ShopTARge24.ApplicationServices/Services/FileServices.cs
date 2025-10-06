@@ -1,10 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Hosting;
 using ShopTARge24.Core.Domain;
 using ShopTARge24.Core.Dto;
 using ShopTARge24.Core.ServiceInterface;
 using ShopTARge24.Data;
-
 
 namespace ShopTARge24.ApplicationServices.Services
 {
@@ -34,7 +34,7 @@ namespace ShopTARge24.ApplicationServices.Services
 
                 foreach (var file in dto.Files)
                 {
-                    string uploadsFolder = Path.Combine(_webHost.ContentRootPath,"wwwroot", "multipleFileUpload");
+                    string uploadsFolder = Path.Combine(_webHost.ContentRootPath, "wwwroot", "multipleFileUpload");
                     string uniqueFileName = Guid.NewGuid().ToString() + "_" + file.FileName;
                     string filePath = Path.Combine(uploadsFolder, uniqueFileName);
 
@@ -57,7 +57,7 @@ namespace ShopTARge24.ApplicationServices.Services
 
         public async Task<FileToApi> RemoveImageFromApi(FileToApiDto dto)
         {
-            //kui soovin kustutada, siis pean l'bi Id pildi ülesse otsima
+            //kui soovin kustutada, siis pean läbi Id pildi ülesse otsima
             var imageId = await _context.FileToApis
                 .FirstOrDefaultAsync(x => x.Id == dto.Id);
 
@@ -78,10 +78,11 @@ namespace ShopTARge24.ApplicationServices.Services
 
         public async Task<List<FileToApi>> RemoveImagesFromApi(FileToApiDto[] dtos)
         {
+            //mitu pilti peab korraga ära kustutama
             foreach (var dto in dtos)
             {
                 var imageId = await _context.FileToApis
-                    .FirstOrDefaultAsync(x => x.ExistingFilePath == dto.ExistingFilePath);
+                .FirstOrDefaultAsync(x => x.ExistingFilePath == dto.ExistingFilePath);
 
                 var filePath = _webHost.ContentRootPath + "\\wwwroot\\multipleFileUpload\\"
                     + imageId.ExistingFilePath;
@@ -96,6 +97,34 @@ namespace ShopTARge24.ApplicationServices.Services
             }
 
             return null;
+        }
+
+        public void UploadFilesToDatabase(RealEstateDto dto, RealEstate domain)
+        {
+            //toimub kontroll, kas on vahemalt uks fail voi mitu
+            if (dto.Files != null && dto.Files.Count > 0)
+            {
+                //tuleb kasutada foreachi et mitu faili ulesse laadida
+                foreach (var file in dto.Files)
+                {
+                    //foreachi sees tuleb kasutada using-t
+                    using (var target = new MemoryStream())
+                    {
+                        FileToDatabase files = new FileToDatabase()
+                        {
+                            Id = Guid.NewGuid(),
+                            ImageTitle = file.FileName,
+                            RealEstateId = domain.Id
+                        };
+                        file.CopyTo(target);
+                        files.ImageData = target.ToArray();
+
+                        _context.FileToDatabases.Add(files);
+                    }
+
+                    //andmed salvestada andmebaasi
+                }
+            }
         }
     }
 }
