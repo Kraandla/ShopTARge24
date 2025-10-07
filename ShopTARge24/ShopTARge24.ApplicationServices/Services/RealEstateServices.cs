@@ -26,7 +26,7 @@ namespace ShopTARge24.ApplicationServices.Services
         {
             RealEstate domain = new RealEstate();
 
-            domain.Id = dto.Id;
+            domain.Id = Guid.NewGuid();
             domain.Area = dto.Area;
             domain.Location = dto.Location;
             domain.RoomNumber = dto.RoomNumber;
