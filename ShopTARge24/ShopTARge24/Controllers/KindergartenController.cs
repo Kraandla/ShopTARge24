@@ -1,9 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using ShopTARge24.ApplicationServices.Services;
 using ShopTARge24.Core.Dto;
 using ShopTARge24.Core.ServiceInterface;
 using ShopTARge24.Data;
+using ShopTARge24.Data.Migrations;
 using ShopTARge24.Models.Kindergarten;
+using ShopTARge24.Models.RealEstate;
 using ShopTARge24.Models.Spaceships;
 
 namespace ShopTARge24.Controllers
@@ -81,6 +84,7 @@ namespace ShopTARge24.Controllers
             {
                 return NotFound();
             }
+            KindergartenImageViewModel[] images = await GetImageFromDatabase(id);
 
             var vm = new KindergartenDeleteViewModel();
 
@@ -91,6 +95,7 @@ namespace ShopTARge24.Controllers
             vm.ChildCount = kindergarten.ChildCount;
             vm.CreatedAt = kindergarten.CreatedAt;
             vm.UpdatedAt = kindergarten.UpdatedAt;
+            vm.Image.AddRange(images);
 
             return View(vm);
         }
@@ -119,7 +124,7 @@ namespace ShopTARge24.Controllers
             {
                 return NotFound();
             }
-
+            KindergartenImageViewModel[] images = await GetImageFromDatabase(id);
             //toimub viewModeliga mappimine
             var vm = new KindergartenDetailsViewModel();
 
@@ -130,6 +135,7 @@ namespace ShopTARge24.Controllers
             vm.ChildCount = kindergarten.ChildCount;
             vm.CreatedAt = kindergarten.CreatedAt;
             vm.UpdatedAt = kindergarten.UpdatedAt;
+            vm.Image.AddRange(images);
 
             return View(vm);
         }
@@ -143,7 +149,7 @@ namespace ShopTARge24.Controllers
             {
                 return NotFound();
             }
-
+            KindergartenImageViewModel[] images = await GetImageFromDatabase(id);
             var vm = new KindergartenCreateUpdateViewModel();
 
             vm.Id = kindergarten.Id;
@@ -153,6 +159,7 @@ namespace ShopTARge24.Controllers
             vm.ChildCount = kindergarten.ChildCount;
             vm.CreatedAt = kindergarten.CreatedAt;
             vm.UpdatedAt = kindergarten.UpdatedAt;
+            vm.Image.AddRange(images);
 
             return View("CreateUpdate", vm);
         }
@@ -179,6 +186,21 @@ namespace ShopTARge24.Controllers
             }
 
             return RedirectToAction(nameof(Index));
+        }
+
+        private async Task<KindergartenImageViewModel[]> GetImageFromDatabase(Guid id)
+        {
+            return await _context.FileToDatabases
+                .Where(x => x.RealEstateId == id)
+                .Select(y => new KindergartenImageViewModel
+                {
+                    Id = y.Id,
+                    KindergartenId = y.Id,
+                    ImageData = y.ImageData,
+                    ImageTitle = y.ImageTitle,
+                    Image = string.Format("data:image/gif;base64,{0}", Convert.ToBase64String(y.ImageData))
+
+                }).ToArrayAsync();
         }
     }
 }
