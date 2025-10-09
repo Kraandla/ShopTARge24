@@ -190,8 +190,8 @@ namespace ShopTARge24.Controllers
 
         private async Task<KindergartenImageViewModel[]> GetImageFromDatabase(Guid id)
         {
-            return await _context.FileToDatabases
-                .Where(x => x.RealEstateId == id)
+            return await _context.FileToDatabaseKindergartens
+                .Where(x => x.KindergartenId == id)
                 .Select(y => new KindergartenImageViewModel
                 {
                     Id = y.Id,
