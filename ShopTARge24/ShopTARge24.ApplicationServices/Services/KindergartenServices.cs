@@ -58,8 +58,12 @@ namespace ShopTARge24.ApplicationServices.Services
                 domain.CreatedAt = (DateTime)dto.CreatedAt;
                 domain.UpdatedAt = DateTime.Now;
 
-                //tuleb db-s teha andmete uuendamine jauue oleku salvestamine
-                _context.Kindergartens.Update(domain);
+                if (dto.Files != null)
+                {
+                    _fileServices.UploadFilesToDatabaseKindergarten(dto, domain);
+                }
+            //tuleb db-s teha andmete uuendamine jauue oleku salvestamine
+            _context.Kindergartens.Update(domain);
                 await _context.SaveChangesAsync();
 
                 return domain;

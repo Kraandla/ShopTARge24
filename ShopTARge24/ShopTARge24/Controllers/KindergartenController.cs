@@ -180,7 +180,16 @@ namespace ShopTARge24.Controllers
                 TeacherName = vm.TeacherName,
                 ChildCount = vm.ChildCount,
                 CreatedAt = vm.CreatedAt,
-                UpdatedAt = vm.UpdatedAt
+                UpdatedAt = vm.UpdatedAt,
+                Files = vm.Files,
+                Image = vm.Image?
+                    .Select(x => new FileToDatabaseKindergartenDto
+                    {
+                        Id = x.Id,
+                        ImageData = x.ImageData,
+                        ImageTitle = x.ImageTitle,
+                        KindergartenId = x.KindergartenId
+                    }).ToArray()
             };
 
             var result = await _KindergartenServices.Update(dto);
