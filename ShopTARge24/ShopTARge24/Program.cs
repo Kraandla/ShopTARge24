@@ -1,7 +1,9 @@
-using ShopTARge24.Data;
 using Microsoft.EntityFrameworkCore;
-using ShopTARge24.Core.ServiceInterface;
+using Microsoft.Extensions.FileProviders;
 using ShopTARge24.ApplicationServices.Services;
+using ShopTARge24.Core.ServiceInterface;
+using ShopTARge24.Data;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,6 +11,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddScoped<ISpaceshipServices, SpaceshipServices>();
+builder.Services.AddScoped<IFileServices, FileServices>();
+builder.Services.AddScoped<IRealEstateServices, RealEstateServices>();
 builder.Services.AddScoped<IKindergartenServices, KindergartenServices>();
 
 builder.Services.AddDbContext<ShopTARge24Context>(options =>
@@ -30,6 +34,8 @@ app.UseRouting();
 app.UseAuthorization();
 
 app.MapStaticAssets();
+
+app.UseStaticFiles();
 
 app.MapControllerRoute(
     name: "default",
