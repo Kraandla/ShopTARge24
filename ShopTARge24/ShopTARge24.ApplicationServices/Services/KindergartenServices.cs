@@ -24,45 +24,45 @@ namespace ShopTARge24.ApplicationServices.Services
 
         public async Task<Kindergarten> Create(KindergartenDto dto)
             {
-                Kindergarten kindergartens = new Kindergarten();
+                Kindergarten domain = new Kindergarten();
 
-                kindergartens.Id = Guid.NewGuid();
-                kindergartens.KindergartenName = dto.KindergartenName;
-                kindergartens.GroupName = dto.GroupName;
-                kindergartens.TeacherName = dto.TeacherName;
-                kindergartens.ChildCount = (int)dto.ChildCount;
-                kindergartens.CreatedAt = DateTime.Now;
-                kindergartens.UpdatedAt = DateTime.Now;
+                domain.Id = Guid.NewGuid();
+                domain.KindergartenName = dto.KindergartenName;
+                domain.GroupName = dto.GroupName;
+                domain.TeacherName = dto.TeacherName;
+                domain.ChildCount = (int)dto.ChildCount;
+                domain.CreatedAt = DateTime.Now;
+                domain.UpdatedAt = DateTime.Now;
 
 
                 if (dto.Files != null)
                 {
-                    _fileServices.UploadFilesToDatabaseKindergarten(dto, kindergartens);
+                    _fileServices.UploadFilesToDatabaseKindergarten(dto, domain);
                 }
-                await _context.Kindergartens.AddAsync(kindergartens);
+                await _context.Kindergartens.AddAsync(domain);
                 await _context.SaveChangesAsync();
 
-                return kindergartens;
+                return domain;
             }
 
             public async Task<Kindergarten> Update(KindergartenDto dto)
             {
                 //vaja leida doamini objekt, mida saaks mappida dto-ga
-                Kindergarten kindergartens = new Kindergarten();
-                
-                kindergartens.Id = (Guid)dto.Id;
-                kindergartens.KindergartenName = dto.KindergartenName;
-                kindergartens.GroupName = dto.GroupName;
-                kindergartens.TeacherName = dto.TeacherName;
-                kindergartens.ChildCount = (int)dto.ChildCount;
-                kindergartens.CreatedAt = (DateTime)dto.CreatedAt;
-                kindergartens.UpdatedAt = DateTime.Now;
+                Kindergarten domain = new Kindergarten();
+
+                domain.Id = (Guid)dto.Id;
+                domain.KindergartenName = dto.KindergartenName;
+                domain.GroupName = dto.GroupName;
+                domain.TeacherName = dto.TeacherName;
+                domain.ChildCount = (int)dto.ChildCount;
+                domain.CreatedAt = (DateTime)dto.CreatedAt;
+                domain.UpdatedAt = DateTime.Now;
 
                 //tuleb db-s teha andmete uuendamine jauue oleku salvestamine
-                _context.Kindergartens.Update(kindergartens);
+                _context.Kindergartens.Update(domain);
                 await _context.SaveChangesAsync();
 
-                return kindergartens;
+                return domain;
             }
 
             public async Task<Kindergarten> DetailAsync(Guid id)

@@ -1,13 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using ShopTARge24.ApplicationServices.Services;
 using ShopTARge24.Core.Dto;
 using ShopTARge24.Core.ServiceInterface;
 using ShopTARge24.Data;
-using ShopTARge24.Data.Migrations;
 using ShopTARge24.Models.Kindergarten;
-using ShopTARge24.Models.RealEstate;
-using ShopTARge24.Models.Spaceships;
 
 namespace ShopTARge24.Controllers
 {
@@ -62,7 +58,16 @@ namespace ShopTARge24.Controllers
                 TeacherName = vm.TeacherName,
                 ChildCount = vm.ChildCount,
                 CreatedAt = vm.CreatedAt,
-                UpdatedAt = vm.UpdatedAt
+                UpdatedAt = vm.UpdatedAt,
+                Files = vm.Files,
+                Image = vm.Image
+                    .Select(x => new FileToDatabaseKindergartenDto
+                    {
+                        Id = x.Id,
+                        ImageData = x.ImageData,
+                        ImageTitle = x.ImageTitle,
+                        KindergartenId = x.KindergartenId
+                    }).ToArray()
             };
 
             var result = await _KindergartenServices.Create(dto);
@@ -84,7 +89,7 @@ namespace ShopTARge24.Controllers
             {
                 return NotFound();
             }
-            KindergartenImageViewModel[] images = await GetImageFromDatabase(id);
+            KindergartenImageViewModel[] images = await GetImageFromDatabaseKindergarten(id);
 
             var vm = new KindergartenDeleteViewModel();
 
@@ -124,7 +129,7 @@ namespace ShopTARge24.Controllers
             {
                 return NotFound();
             }
-            KindergartenImageViewModel[] images = await GetImageFromDatabase(id);
+            KindergartenImageViewModel[] images = await GetImageFromDatabaseKindergarten(id);
             //toimub viewModeliga mappimine
             var vm = new KindergartenDetailsViewModel();
 
@@ -149,7 +154,7 @@ namespace ShopTARge24.Controllers
             {
                 return NotFound();
             }
-            KindergartenImageViewModel[] images = await GetImageFromDatabase(id);
+            KindergartenImageViewModel[] images = await GetImageFromDatabaseKindergarten(id);
             var vm = new KindergartenCreateUpdateViewModel();
 
             vm.Id = kindergarten.Id;
@@ -188,7 +193,7 @@ namespace ShopTARge24.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        private async Task<KindergartenImageViewModel[]> GetImageFromDatabase(Guid id)
+        private async Task<KindergartenImageViewModel[]> GetImageFromDatabaseKindergarten(Guid id)
         {
             return await _context.FileToDatabaseKindergartens
                 .Where(x => x.KindergartenId == id)

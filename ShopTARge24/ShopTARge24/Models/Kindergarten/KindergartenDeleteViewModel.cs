@@ -7,7 +7,6 @@
         public string? GroupName { get; set; }
         public string? TeacherName { get; set; }
         public int? ChildCount { get; set; }
-        public List<IFormFile> Files { get; set; }
         public List<KindergartenImageViewModel> Image { get; set; }
             = new List<KindergartenImageViewModel>();
         public DateTime? CreatedAt { get; set; }
