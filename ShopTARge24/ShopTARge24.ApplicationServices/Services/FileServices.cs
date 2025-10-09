@@ -124,5 +124,32 @@ namespace ShopTARge24.ApplicationServices.Services
                 }
             }
         }
+
+        public void UploadFilesToDatabaseKindergarten(KindergartenDto dto, Kindergarten domain)
+        {
+            //toimub kontroll, kas on v'hemalt [ks fail v]i mitu
+            if(dto.Files != null && dto.Files.Count > 0)
+            {
+                //tuleb kasutada foreachi et mitu faili [lesse laadida
+                foreach (var file in dto.Files)
+                {
+                    //foreachi sees tuleb kasutada using-t
+                    using (var target = new MemoryStream())
+                    {
+                        FileToDatabaseKindergarten files = new FileToDatabaseKindergarten()
+                        {
+                            Id = Guid.NewGuid(),
+                            ImageTitle = file.FileName,
+                            KindergartenId = domain.Id
+                        };
+
+                        file.CopyTo(target);
+                        files.ImageData = target.ToArray();
+
+                        _context.FileToDatabaseKindergartens.Add(files);
+                    }
+                }
+            }
+        }
     }
 }
