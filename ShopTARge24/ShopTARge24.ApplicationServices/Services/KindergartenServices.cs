@@ -84,7 +84,8 @@ namespace ShopTARge24.ApplicationServices.Services
                     .FirstOrDefaultAsync(x => x.Id == id);
 
 
-                //kui rida on leitud, siis eemaldage andmebaasist
+            //kui rida on leitud, siis eemaldage andmebaasist
+                _fileServices.DeleteFilesFromDatabaseKindergarten(id);
                 _context.Kindergartens.Remove(result);
                 await _context.SaveChangesAsync();
 

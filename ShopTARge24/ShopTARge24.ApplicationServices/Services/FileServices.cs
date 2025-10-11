@@ -151,5 +151,19 @@ namespace ShopTARge24.ApplicationServices.Services
                 }
             }
         }
+
+        public void DeleteFilesFromDatabaseKindergarten(Guid kindergartenId)
+        {
+            var files = _context.FileToDatabaseKindergartens
+                .Where(f => f.KindergartenId == kindergartenId)
+                .ToList();
+
+            if (files.Any())
+            {
+                _context.FileToDatabaseKindergartens.RemoveRange(files);
+                _context.SaveChanges();
+            }
+        }
+
     }
 }
