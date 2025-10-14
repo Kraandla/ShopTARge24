@@ -1,0 +1,105 @@
+[
+  {
+    "PrimaryPostalCode": "PrimaryPostalCode",
+    "Region": {
+      "ID": "ID",
+      "LocalizedName": "LocalizedName",
+      "EnglishName": "EnglishName"
+    },
+    "TimeZone": {
+      "Code": "Code",
+      "NextOffsetChange": "2024-08-25T15:00:00Z",
+      "Name": "Name",
+      "GmtOffset": 0,
+      "IsDaylightSaving": true
+    },
+    "GeoPosition": {
+      "Elevation": {
+        "Metric": {
+          "UnitType": 0,
+          "Value": 0,
+          "Unit": "Unit"
+        },
+        "Imperial": {
+          "UnitType": 0,
+          "Value": 0,
+          "Unit": "Unit"
+        }
+      },
+      "Latitude": 0,
+      "Longitude": 0
+    },
+    "IsAlias": true,
+    "ParentCity": {
+      "Key": "Key",
+      "LocalizedName": "LocalizedName",
+      "EnglishName": "EnglishName"
+    },
+    "SupplementalAdminAreas": [
+      {
+        "Level": 0,
+        "LocalizedName": "LocalizedName",
+        "EnglishName": "EnglishName"
+      }
+    ],
+    "DataSets": [
+      "string"
+    ],
+    "Details": {
+      "Key": "Key",
+      "StationCode": "StationCode",
+      "StationGmtOffset": 0,
+      "BandMap": "BandMap",
+      "Climo": "Climo",
+      "LocalRadar": "LocalRadar",
+      "MediaRegion": "MediaRegion",
+      "Metar": "Metar",
+      "NXMetro": "NXMetro",
+      "NXState": "NXState",
+      "Population": 0,
+      "PrimaryWarningCountyCode": "PrimaryWarningCountyCode",
+      "PrimaryWarningZoneCode": "PrimaryWarningZoneCode",
+      "Satellite": "Satellite",
+      "Synoptic": "Synoptic",
+      "MarineStation": "MarineStation",
+      "MarineStationGMTOffset": 0,
+      "VideoCode": "VideoCode",
+      "LocationStem": "LocationStem",
+      "DMA": {
+        "ID": "ID",
+        "EnglishName": "EnglishName"
+      },
+      "PartnerID": {},
+      "Sources": [
+        {
+          "DataType": "DataType",
+          "Source": "Source",
+          "SourceId": 0,
+          "PartnerSourceUrl": {}
+        }
+      ],
+      "CanonicalPostalCode": "CanonicalPostalCode",
+      "CanonicalLocationKey": "CanonicalLocationKey"
+    },
+    "EnglishName": "EnglishName",
+    "Version": 0,
+    "Key": "Key",
+    "Type": "Type",
+    "Rank": 0,
+    "LocalizedName": "LocalizedName",
+    "Country": {
+      "ID": "ID",
+      "LocalizedName": "LocalizedName",
+      "EnglishName": "EnglishName"
+    },
+    "AdministrativeArea": {
+      "Level": 0,
+      "LocalizedType": {},
+      "EnglishType": {},
+      "CountryID": "CountryID",
+      "ID": "ID",
+      "LocalizedName": "LocalizedName",
+      "EnglishName": "EnglishName"
+    }
+  }
+]
