@@ -12,5 +12,7 @@ namespace ShopTARge24.Core.ServiceInterface
         void UploadFilesToDatabaseKindergarten(KindergartenDto dto, Kindergarten domain);
         public void DeleteFilesFromDatabaseKindergarten(Guid kindergartenId);
 
+        Task DeleteSingleFileFromDatabaseKindergarten(Guid fileId);
+
     }
 }

@@ -11,15 +11,18 @@ namespace ShopTARge24.Controllers
     {
         private readonly ShopTARge24Context _context;
         private readonly IKindergartenServices _KindergartenServices;
+        private readonly IFileServices _fileServices;
 
         public KindergartenController
             (
                 ShopTARge24Context context,
-                IKindergartenServices KindergartenServices
+                IKindergartenServices KindergartenServices,
+                IFileServices fileServices
             )
         {
             _context = context;
             _KindergartenServices = KindergartenServices;
+            _fileServices = fileServices;
         }
 
 
@@ -119,6 +122,15 @@ namespace ShopTARge24.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        [HttpPost]
+        public async Task<IActionResult> DeleteImage(Guid fileId, Guid kindergartenId)
+        {
+            await _fileServices.DeleteSingleFileFromDatabaseKindergarten(fileId);
+
+            // Reload the same Delete view (or Details view)
+            return RedirectToAction("Delete", new { id = kindergartenId });
+        }
+
         [HttpGet]
         public async Task<IActionResult> Details(Guid id)
         {
@@ -209,13 +221,14 @@ namespace ShopTARge24.Controllers
                 .Select(y => new KindergartenImageViewModel
                 {
                     Id = y.Id,
-                    KindergartenId = y.Id,
+                    KindergartenId = y.KindergartenId,
                     ImageData = y.ImageData,
                     ImageTitle = y.ImageTitle,
                     Image = string.Format("data:image/gif;base64,{0}", Convert.ToBase64String(y.ImageData))
-
-                }).ToArrayAsync();
+                })
+                .ToArrayAsync();
         }
+
     }
 }
 

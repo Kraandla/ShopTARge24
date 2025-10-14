@@ -1,6 +1,12 @@
 ﻿@model ShopTARge24.Models.Kindergarten.KindergartenImageViewModel
 
-<div class="form-group row col-sm-4 offset-2">
-    <div>@Model.ImageTitle</div>
-    <img class="card-img-top" src="@Model.Image" asp-append-version="true" />
+<div class="image-item" style="display:inline-block; margin:10px; text-align:center;">
+    <img src="@Model.Image" alt="@Model.ImageTitle" width="150" height="150" class="img-thumbnail" />
+    <p>@Model.ImageTitle</p>
+
+    <form asp-action="DeleteImage" method="post">
+        <input type="hidden" name="fileId" value="@Model.Id" />
+        <input type="hidden" name="kindergartenId" value="@Model.KindergartenId" />
+        <button type="submit" class="btn btn-sm btn-danger mt-2">Delete Image</button>
+    </form>
 </div>

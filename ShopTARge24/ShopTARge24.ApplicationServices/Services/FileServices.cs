@@ -165,5 +165,17 @@ namespace ShopTARge24.ApplicationServices.Services
             }
         }
 
+        public async Task DeleteSingleFileFromDatabaseKindergarten(Guid fileId)
+        {
+            var file = await _context.FileToDatabaseKindergartens
+                .FirstOrDefaultAsync(f => f.Id == fileId);
+
+            if (file != null)
+            {
+                _context.FileToDatabaseKindergartens.Remove(file);
+                await _context.SaveChangesAsync();
+            }
+        }
+
     }
 }
