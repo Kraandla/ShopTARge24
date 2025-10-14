@@ -92,7 +92,7 @@ namespace ShopTARge24.Controllers
             {
                 return NotFound();
             }
-            KindergartenImageViewModel[] images = await GetImageFromDatabaseKindergarten(id);
+            KindergartenImageViewModel[] images = await GetImageFromDatabaseKindergarten(id, true);
 
             var vm = new KindergartenDeleteViewModel();
 
@@ -214,7 +214,7 @@ namespace ShopTARge24.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        private async Task<KindergartenImageViewModel[]> GetImageFromDatabaseKindergarten(Guid id)
+        private async Task<KindergartenImageViewModel[]> GetImageFromDatabaseKindergarten(Guid id, bool showDeleteButton = false)
         {
             return await _context.FileToDatabaseKindergartens
                 .Where(x => x.KindergartenId == id)
@@ -224,7 +224,8 @@ namespace ShopTARge24.Controllers
                     KindergartenId = y.KindergartenId,
                     ImageData = y.ImageData,
                     ImageTitle = y.ImageTitle,
-                    Image = string.Format("data:image/gif;base64,{0}", Convert.ToBase64String(y.ImageData))
+                    Image = string.Format("data:image/gif;base64,{0}", Convert.ToBase64String(y.ImageData)),
+                    ShowDeleteButton = showDeleteButton
                 })
                 .ToArrayAsync();
         }
