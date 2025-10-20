@@ -3,6 +3,8 @@
 
     public class AccuLocationRootDto
         {
+        public class Root
+        {
             public string? LocalObservationDateTime { get; set; }
             public long EpochTime { get; set; }
             public string? WeatherText { get; set; }
@@ -14,17 +16,18 @@
             public string? MobileLink { get; set; }
             public string? Link { get; set; }
 
-            public class Temperature
+            public class AccuTemperatureDto
             {
-                public UnitValue? Metric { get; set; }
-                public UnitValue? Imperial { get; set; }
+                public AccuWeatherUnitDto? Metric { get; set; }
+                public AccuWeatherUnitDto? Imperial { get; set; }
             }
 
-            public class UnitValue
+            public class AccuWeatherUnitDto
             {
                 public double Value { get; set; }
                 public string? Unit { get; set; }
                 public int UnitType { get; set; }
+            }
             }
         }
 
