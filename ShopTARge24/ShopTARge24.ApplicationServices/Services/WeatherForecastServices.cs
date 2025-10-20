@@ -10,7 +10,7 @@ namespace ShopTARge24.ApplicationServices.Services
         {
 
             //https://developer.accuweather.com/core-weather/text-search?lang=shell#city-search
-            string apiKey = "zpka_0c86f3fafa9147e58813fa06b647f221_9b9fd9d9";
+            string apiKey = "";
             var response = $"http://dataservice.accuweather.com/locations/v1/cities/search?apikey={apiKey}&q={dto.CityName}";
 
             using (var client = new HttpClient())
@@ -25,7 +25,7 @@ namespace ShopTARge24.ApplicationServices.Services
                 dto.CityCode = weatherData[0].Key;
             }
 
-            string weatherResponse = $"http://dataservice.accuweather.com/currentconditions/v1/{dto.CityCode}?apikey={apiKey}";
+            string weatherResponse = $"http://dataservice.accuweather.com/currentconditions/v1/{dto.CityCode}?apikey={apiKey}&metric=true";
 
             using (var clientWeather = new HttpClient())
             {
