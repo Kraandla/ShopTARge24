@@ -5,7 +5,6 @@ using ShopTARge24.Core.ServiceInterface;
 using System.Buffers.Text;
 using System.Net;
 using System.Net.Http;
-using System.Text;
 using System.Text.Json;
 
 namespace ShopTARge24.ApplicationServices.Services
@@ -22,21 +21,14 @@ namespace ShopTARge24.ApplicationServices.Services
 
             using (var httpClient = new HttpClient())
             {
-                var request = new HttpRequestMessage
-                {
-                    Method = HttpMethod.Get,
-                    RequestUri = new Uri($"http://dataservice.accuweather.com/locations/v1/cities/search?apikey={apiKey}&q={dto.CityName}"),
-                    Content = new StringContent("", Encoding.UTF8, "application/json"),
-                };
-
                 httpClient.BaseAddress = new Uri(baseUrl);
                 httpClient.DefaultRequestHeaders.Accept.Clear();
                 httpClient.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
                 //127964
-                var response = await httpClient.GetAsync($"{dto.CityName}?apikey={apiKey}&details=true");
+                var response = await httpClient.GetAsync($"{dto.CityCode}?apikey={apiKey}&details=true");
                 var jsonResponse = await response.Content.ReadAsStringAsync();
-                
-                var weatherData = JsonSerializer.Deserialize<List<AccuCityCodeRootDto>>(jsonResponse);
+                List<AccuCityCodeRootDto> weatherData =
+                    JsonSerializer.Deserialize<List<AccuCityCodeRootDto>>(jsonResponse);
 
                 dto.CityName = weatherData[0].LocalizedName;
                 dto.CityCode = weatherData[0].Key;
