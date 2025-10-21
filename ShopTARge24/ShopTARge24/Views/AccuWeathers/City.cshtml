@@ -1,0 +1,27 @@
+﻿@model ShopTARge24.Models.AccuWeathers.AccuWeatherViewModel
+<div>
+    <h2>Forecast for the selected city</h2>
+    <h2>@Html.DisplayFor(model => model.CityName)</h2>
+    <hr />
+
+    <dl class="row text-dark">
+        <dt class="col-sm-2">Effective Date:</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.EffectiveDate)</dd>
+
+        <dt class="col-sm-2">Severity:</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.Severity)</dd>
+
+        <dt class="col-sm-2">Category:</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.Category)</dd>
+
+        <dt class="col-sm-2">Weather Condition:</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.WeatherText)</dd>
+
+        <dt class="col-sm-2">Temperature (°C):</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.TemperatureCelsius) °C</dd>
+
+        <dt class="col-sm-2">Temperature (°F):</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.TemperatureFahrenheit) °F</dd>
+    </dl>
+</div>
+

@@ -17,10 +17,12 @@ namespace ShopTARge24.ApplicationServices.Services
                 var httpResponse = await client.GetAsync(response);
                 string json = await httpResponse.Content.ReadAsStringAsync();
 
-                List<AccuLocationRootDto> weatherData = 
-                    JsonSerializer.Deserialize<List<AccuLocationRootDto>>(json);
+                List<AccuCityCodeRootDto> weatherData = 
+                    JsonSerializer.Deserialize<List<AccuCityCodeRootDto>>(json);
 
-                dto.CityName = weatherData[0].;
+                dto.CityName = weatherData[0].LocalizedName;
+                dto.CityCode = weatherData[0].Key;
+
             }
 
             return dto;
