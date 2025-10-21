@@ -1,5 +1,9 @@
 ﻿namespace ShopTARge24.Core.Dto
 {
+    //public class AccuCityCodeRootDto
+    //{
+    //    public CityCode[]? CityCode { get; set; }
+    //}
 
     public class AccuCityCodeRootDto
     {
@@ -10,14 +14,14 @@
         public string LocalizedName { get; set; } = string.Empty;
         public string EnglishName { get; set; } = string.Empty;
         public string PrimaryPostalCode { get; set; } = string.Empty;
-        public Region? Region { get; set; }
+        public Region? Region { get; set; } 
         public Country? Country { get; set; }
         public AdministrativeArea? AdministrativeArea { get; set; }
         public Timezone? TimeZone { get; set; }
         public Geoposition? GeoPosition { get; set; }
         public bool IsAlias { get; set; }
         public SupplementalAdminArea[]? SupplementalAdminAreas { get; set; }
-        public string[]? DataSets { get; set; }
+        public string[]? DataSets { get; set; } 
     }
 
     public class Region
