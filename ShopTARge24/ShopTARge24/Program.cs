@@ -15,6 +15,7 @@ builder.Services.AddScoped<IFileServices, FileServices>();
 builder.Services.AddScoped<IRealEstateServices, RealEstateServices>();
 builder.Services.AddScoped<IWeatherForecastServices, WeatherForecastServices>();
 builder.Services.AddHttpClient<ChuckNorrisService>();
+builder.Services.AddHttpClient<ICocktailServices, CocktailServices>();
 
 
 builder.Services.AddDbContext<ShopTARge24Context>(options =>

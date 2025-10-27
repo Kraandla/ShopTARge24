@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ShopTARge24.Core.Dto;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,6 @@ namespace ShopTARge24.Core.ServiceInterface
 {
     public interface ICocktailServices
     {
-
+        Task<Root> GetDrink(string strDrink);
     }
 }

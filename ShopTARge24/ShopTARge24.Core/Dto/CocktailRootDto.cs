@@ -23,16 +23,6 @@ namespace ShopTARge24.Core.Dto
         public string strAlcoholic { get; set; }
         public string strGlass { get; set; }
         public string strInstructions { get; set; }
-        public string strInstructionsES { get; set; }
-        public string strInstructionsDE { get; set; }
-        public string strInstructionsFR { get; set; }
-        public string strInstructionsIT { get; set; }
-
-        [JsonProperty("strInstructionsZH-HANS")]
-        public object strInstructionsZHHANS { get; set; }
-
-        [JsonProperty("strInstructionsZH-HANT")]
-        public object strInstructionsZHHANT { get; set; }
         public string strDrinkThumb { get; set; }
         public string strIngredient1 { get; set; }
         public string strIngredient2 { get; set; }
