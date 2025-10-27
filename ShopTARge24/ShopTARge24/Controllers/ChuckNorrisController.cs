@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using ShopTARge24.ApplicationServices.Services;
 using ShopTARge24.Core.Dto.ChuckNorris;
 using ShopTARge24.Core.ServiceInterface;
 using ShopTARge24.Models.ChuckNorris;
@@ -30,20 +31,19 @@ namespace ShopTARge24.Controllers
         }
 
         [HttpGet]
-        public IActionResult Joke()
+        public async Task<IActionResult>Joke()
         {
-            ChuckNorrisResultDto dto = new();
+            var joke = await _chuckNorrisServices.ChuckNorrisResultHttpClient();
 
-            _chuckNorrisServices.ChuckNorrisResult(dto);
             ChuckNorrisViewModel vm = new();
 
-            vm.Categories = dto.Categories;
-            vm.CreatedAt = dto.CreatedAt;
-            vm.IconUrl = dto.IconUrl;
-            vm.Id = dto.Id;
-            vm.UpdatedAt = dto.UpdatedAt;
-            vm.Url = dto.Url;
-            vm.Value = dto.Value;
+            //vm.Categories = joke.Categories;
+            vm.CreatedAt = joke.CreatedAt;
+            vm.IconUrl = joke.IconUrl;
+            vm.Id = joke.Id;
+            vm.UpdatedAt = joke.UpdatedAt;
+            vm.Url = joke.Url;
+            vm.Value = joke.Value;
 
             return View(vm);
         }
