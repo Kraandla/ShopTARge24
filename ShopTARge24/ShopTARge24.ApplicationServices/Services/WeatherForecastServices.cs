@@ -1,5 +1,5 @@
 ﻿using Nancy.Json;
-using ShopTARge24.Core.Dto;
+using ShopTARge24.Core.Dto.AccuWeather;
 using ShopTARge24.Core.Dto.WeatherWebClientDto;
 using ShopTARge24.Core.ServiceInterface;
 using System.Buffers.Text;
