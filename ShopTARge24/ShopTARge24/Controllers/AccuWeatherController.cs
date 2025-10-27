@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ShopTARge24.Core.ServiceInterface;
 using ShopTARge24.Models.AccuWeathers;
-using ShopTARge24.Core.Dto;
+using ShopTARge24.Core.Dto.AccuWeather;
 
 namespace ShopTARge24.Controllers
 {

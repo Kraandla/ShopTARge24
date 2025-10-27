@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 
 
-namespace ShopTARge24.Core.Dto.WeatherWebClientDto
+namespace ShopTARge24.Core.Dto.AccuWeather.WeatherWebClientDto
 {
 
     public class AccuWeatherRootWebClientDto
@@ -16,7 +16,7 @@ namespace ShopTARge24.Core.Dto.WeatherWebClientDto
         public string EffectiveDate { get; set; }
 
         [JsonProperty("EffectiveEpochDate")]
-        public Int64 EffectiveEpochDate { get; set; }
+        public long EffectiveEpochDate { get; set; }
 
         [JsonProperty("Severity")]
         public int Severity { get; set; }
@@ -31,7 +31,7 @@ namespace ShopTARge24.Core.Dto.WeatherWebClientDto
         public string EndDate { get; set; }
 
         [JsonProperty("EndEpochDate")]
-        public Int64 EndEpochDate { get; set; }
+        public long EndEpochDate { get; set; }
 
         [JsonProperty("MobileLink")]
         public string MobileLink { get; set; }
@@ -84,13 +84,13 @@ namespace ShopTARge24.Core.Dto.WeatherWebClientDto
         public string Rise { get; set; }
 
         [JsonProperty("DailyForecasts.Sun.EpochRise")]
-        public Int64 EpochRise { get; set; }
+        public long EpochRise { get; set; }
 
         [JsonProperty("DailyForecasts.Sun.Set")]
         public string Set { get; set; }
 
         [JsonProperty("DailyForecasts.Sun.EpochSet")]
-        public Int64 EpochSet { get; set; }
+        public long EpochSet { get; set; }
 
         [JsonProperty("DailyForecasts.Sun.Phase")]
         public string Phase { get; set; }

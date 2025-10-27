@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace ShopTARge24.Core.Dto.WeatherWebClientDto
+namespace ShopTARge24.Core.Dto.AccuWeather.WeatherWebClientDto
 {
     public class AccuLocationRootWebClientDto
     {
