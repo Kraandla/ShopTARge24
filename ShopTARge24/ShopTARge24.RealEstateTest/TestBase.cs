@@ -5,6 +5,7 @@ using ShopTARge24.ApplicationServices.Services;
 using ShopTARge24.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
+using ShopTARge24.RealEstateTest.Macros;
 
 namespace ShopTARge24.RealEstateTest
 {
@@ -21,6 +22,7 @@ namespace ShopTARge24.RealEstateTest
         public virtual void SetupServices(IServiceCollection services) 
         {
             services.AddScoped<IRealEstateServices, RealEstateServices>();
+            services.AddScoped<IFileServices, FileServices>();
 
             services.AddDbContext<ShopTARge24Context>(x =>
             {
@@ -33,6 +35,11 @@ namespace ShopTARge24.RealEstateTest
         public void Dispose() 
         { 
             
+        }
+
+        public T Svc<T>()
+        {
+            return ServiceProvider.GetRequiredService<T>();
         }
 
         private void RegisterMacros(IServiceCollection services) 
