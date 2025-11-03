@@ -1,0 +1,22 @@
+﻿@model ShopTARge24.Core.Dto.Root
+
+<h2>Drinks search</h2>
+
+
+<form asp-action="Search" method="post">
+    <input type="text" name="drinkName" placeholder="Enter drink name" />
+    <button type="submit">Search</button>
+</form>
+
+@if (Model?.drinks != null)
+{
+    <ul>
+        @foreach (var drink in Model.drinks)
+        {
+            <li>
+                <strong>@drink.strDrink</strong> - @drink.strCategory
+            </li>
+        }
+    </ul>
+}
+

@@ -26,7 +26,7 @@ namespace ShopTARge24.ApplicationServices.Services
         {
             var baseUrl = "https://www.thecocktaildb.com/api/json/v1/1/search.php?s=";
 
-            var response = await _httpClient.GetAsync($"https://www.thecocktaildb.com/api/json/v1/1/search.php?s={dto.strDrink}");
+            var response = await _httpClient.GetAsync($"https://www.thecocktaildb.com/api/json/v1/1/search.php?s={strDrink}");
             var jsonResponse = await response.Content.ReadAsStringAsync();
 
             var drinkData = JsonConvert.DeserializeObject<Root>(jsonResponse);
