@@ -5,6 +5,8 @@ using ShopTARge24.Data;
 using ShopTARge24.RealEstateTest.Macros;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Hosting;
+using ShopTARge24.RealEstateTest.Mock;
 
 
 namespace ShopTARge24.RealEstateTest
@@ -26,6 +28,7 @@ namespace ShopTARge24.RealEstateTest
         {
             services.AddScoped<IRealEstateServices, RealEstateServices>();
             services.AddScoped<IFileServices, FileServices>();
+            services.AddScoped<IHostEnvironment, MockIHostEnvironment>();
 
             services.AddDbContext<ShopTARge24Context>(x =>
             {

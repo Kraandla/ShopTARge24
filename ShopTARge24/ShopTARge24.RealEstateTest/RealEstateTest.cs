@@ -7,7 +7,7 @@ namespace ShopTARge24.RealEstateTest
     public class RealEstateTest : TestBase
     {
         [Fact]
-        public async Task Test1()
+        public async Task ShouldNot_AddEmptyRealEstate_WhenReturnResult()
         {
             // Arrange
             RealEstateDto dto = new()
@@ -26,5 +26,10 @@ namespace ShopTARge24.RealEstateTest
             // Assert
             Assert.NotNull(result);
         }
+
+        //ShouldNot_GetByIdRealestate_WhenReturnsNotEqual()
+        //Should_GetByIdRealestate_WhenReturnsEqual()
+        //Should_DeleteByIdRealEstate_WhenDeleteRealEstate()
+        //ShouldNot_DeleteByIdRealEstate_WhenDidNotDeleteRealEstate()
     }
 }
