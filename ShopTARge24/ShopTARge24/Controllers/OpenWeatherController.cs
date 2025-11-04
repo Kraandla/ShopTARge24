@@ -52,8 +52,8 @@ namespace ShopTARge24.Controllers
             {
                 City = weatherData.name,
                 Country = weatherData.sys.country,
-                Temperature = weatherData.main.temp,
-                FeelsLike = weatherData.main.feels_like,
+                Temperature = Math.Round( weatherData.main.temp - 273.15, 2),
+                FeelsLike = Math.Round(weatherData.main.feels_like - 273.15, 2),
                 Description = weatherData.weather.FirstOrDefault()?.description,
                 WindSpeed = weatherData.wind.speed,
                 Humidity = weatherData.main.humidity
