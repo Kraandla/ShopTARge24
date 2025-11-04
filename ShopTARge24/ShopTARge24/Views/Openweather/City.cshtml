@@ -1,0 +1,50 @@
+﻿@model ShopTARge24.Models.OpenWeather.OpenWeatherViewModel
+
+<div class="container">
+    <h2>Foreacast for the selected city</h2>
+    <h2>@Html.DisplayFor(model => model.City)</h2>
+    <h3>@Html.DisplayFor(model => model.Country)</h3>
+    <hr />
+    <dl class="row text-dark">
+        <div>
+            <dt class="col-sm-2">
+                Temperature:
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Temperature) °C
+            </dd>
+        </div>
+        <div>
+            <dt class="col-sm-2">
+                FeelsLike:
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.FeelsLike) °C
+            </dd>
+        </div>
+        <div>
+            <dt class="col-sm-2">
+                Description:
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Description)
+            </dd>
+        </div>
+        <div>
+            <dt class="col-sm-2">
+                WindSpeed:
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.WindSpeed)
+            </dd>
+        </div>
+        <div>
+            <dt class="col-sm-2">
+                Humidity:
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Humidity)
+            </dd>
+        </div>
+    </dl>
+</div>
