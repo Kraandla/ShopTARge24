@@ -19,7 +19,7 @@ namespace ShopTARge24.ApplicationServices.Services
             _httpClient = httpClient;
         }
 
-        public async Task<OpenWeatherDto> GetWeatherByCityName(string City) 
+        public async Task<OpenWeatherDto.Root> GetWeatherByCityName(string City) 
         {
             var apiKey = _apikey;
             var url = $"https://api.openweathermap.org/data/2.5/weather?q={City}&appid={apiKey}";
