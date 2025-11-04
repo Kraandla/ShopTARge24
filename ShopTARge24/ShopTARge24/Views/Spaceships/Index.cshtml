@@ -5,7 +5,7 @@
 }
 
 <div>
-    <a asp-action="create" asp-controller="Spaceships" type="submit" class="btn btn-primary">Create</a>
+    <a id="spaceshipsCreateTest" asp-action="create" asp-controller="Spaceships" type="submit" class="btn btn-primary">Create</a>
 </div>
 
 <div class="h1">
@@ -33,9 +33,9 @@
                         <td>@spaceship.BuiltDate</td>
                         <td>@spaceship.Crew</td>
                         <td>
-                            <a asp-action="details" asp-controller="spaceships" asp-route-id="@spaceship.Id" class="btn btn-primary">Details</a>
-                            <a asp-action="update" asp-controller="spaceships" asp-route-id="@spaceship.Id" class="btn btn-primary">Update</a>
-                            <a asp-action="delete" asp-controller="spaceships" asp-route-id="@spaceship.Id" class="btn btn-outline-danger">Delete</a>
+                            <a id="spaceshipsDetailsTest" asp-action="details" asp-controller="spaceships" asp-route-id="@spaceship.Id" class="btn btn-primary">Details</a>
+                            <a id="spaceshipsUpdateTest" asp-action="update" asp-controller="spaceships" asp-route-id="@spaceship.Id" class="btn btn-primary">Update</a>
+                            <a id="spaceshipsDeleteTest" asp-action="delete" asp-controller="spaceships" asp-route-id="@spaceship.Id" class="btn btn-outline-danger">Delete</a>
                         </td>
                 </tr>
                 rowNumber += 1;
