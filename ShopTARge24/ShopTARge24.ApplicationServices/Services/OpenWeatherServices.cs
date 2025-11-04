@@ -1,6 +1,7 @@
 ﻿using Nancy;
 using Newtonsoft.Json;
 using ShopTARge24.Core.Dto;
+using ShopTARge24.Core.ServiceInterface;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace ShopTARge24.ApplicationServices.Services
 {
-    public class OpenWeatherServices
+    public class OpenWeatherServices : IOpenWeatherServices
     {
         private readonly HttpClient _httpClient;
         private readonly string _apikey = "3723eb83d928ac0851c98596bf45078d";
