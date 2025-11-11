@@ -58,7 +58,7 @@ namespace ShopTARge24.RealEstateTest
         public async Task Should_DeleteByIdRealEstate_WhenDeleteRealEstate()
         {
             //arrange
-            RealEstateDto dto = MockRealEstateDto();
+            RealEstateDto dto = MockRealEstateData();
 
             //act
             var addRealEstate = await Svc<IRealEstateServices>().Create(dto);
@@ -72,7 +72,7 @@ namespace ShopTARge24.RealEstateTest
         public async Task ShouldNot_DeleteByIdRealEstate_WhenDidNotDeleteRealEstate()
         {
             //arrange
-            var dto = MockRealEstateDto();
+            var dto = MockRealEstateData();
 
             //act
             var realEstate1 = await Svc<IRealEstateServices>().Create(dto);
@@ -90,7 +90,7 @@ namespace ShopTARge24.RealEstateTest
             //arrange
             var guid = new Guid("68ce7565-9105-4945-b428-b8e25ec061c6");
 
-            RealEstateDto dto = MockRealEstateDto();
+            RealEstateDto dto = MockRealEstateData();
 
             RealEstateDto domain = new();
 
@@ -121,7 +121,7 @@ namespace ShopTARge24.RealEstateTest
             //lõpus kontrollime et andmed on erinevad
             //arrange and act
             //alguses andmed luuakse ja kasutame MockRealEstateDto meetodit
-            RealEstateDto dto = MockRealEstateDto();
+            RealEstateDto dto = MockRealEstateData();
             var createRealEstate = await Svc<IRealEstateServices>().Create(dto);
 
             //andmed uuendatakse ja kasutame uut Mock meetodit(selle peab ise tegema)
@@ -133,7 +133,44 @@ namespace ShopTARge24.RealEstateTest
             Assert.NotEqual(createRealEstate.ModifiedAt, result.ModifiedAt);
         }
 
-        private RealEstateDto MockRealEstateDto()
+        [Fact]
+        public async Task ShouldNot_UpdateRealEstate_WhenDidNotUpdateData()
+        {
+            //arrange
+            //kasutate MockRealEstateData meetodit, kus on andmed
+            //tuleb kasutada Create meetodit, et andmed luua
+            RealEstateDto dto = MockRealEstateData();
+            var createRealEstate = await Svc<IRealEstateServices>().Create(dto);
+
+            //tuleb teha uus meetod nimega MockNullRealEstateData(),
+            //kus on tühjad andmed e null või ""
+            RealEstateDto nullDto = MockNullRealEstateData();
+            var result = await Svc<IRealEstateServices>().Update(nullDto);
+
+            //assert
+            //toimub võrdlemine, et andmed ei ole võrdsed
+            Assert.NotEqual(createRealEstate.Id, result.Id);
+        }
+
+        //tuleb välja mõelda kolm erinevat xUnit testi RealEstate kohta
+        //saate teha 2-3 in meeskonnas
+        //kommentaari kirjutate, mida iga test kontrollib
+
+        private RealEstateDto MockNullRealEstateData()
+        {
+            return new RealEstateDto
+            {
+                Id = null,
+                Area = null,
+                Location = "",
+                RoomNumber = null,
+                BuildingType = "",
+                CreatedAt = null,
+                ModifiedAt = null
+            };
+        }
+
+        private RealEstateDto MockRealEstateData()
         {
             return new RealEstateDto
             {
@@ -160,7 +197,5 @@ namespace ShopTARge24.RealEstateTest
 
             return realEstate;
         }
-
-
     }
 }
