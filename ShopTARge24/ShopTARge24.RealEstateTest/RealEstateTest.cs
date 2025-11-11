@@ -152,6 +152,8 @@ namespace ShopTARge24.RealEstateTest
             Assert.NotEqual(createRealEstate.Id, result.Id);
         }
 
+
+
         //tuleb välja mõelda kolm erinevat xUnit testi RealEstate kohta
         //saate teha 2-3 in meeskonnas
         //kommentaari kirjutate, mida iga test kontrollib
