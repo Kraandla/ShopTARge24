@@ -1,10 +1,11 @@
-﻿using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.DependencyInjection;
-using ShopTARge24.Core.ServiceInterface;
-using ShopTARge24.ApplicationServices.Services;
-using ShopTARge24.Data;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Hosting.Internal;
+using ShopTARge24.ApplicationServices.Services;
+using ShopTARge24.Core.ServiceInterface;
+using ShopTARge24.Data;
 using ShopTARge24.RealEstateTest.Macros;
 
 namespace ShopTARge24.RealEstateTest
@@ -21,12 +22,19 @@ namespace ShopTARge24.RealEstateTest
 
         public virtual void SetupServices(IServiceCollection services) 
         {
+            services.AddSingleton<IHostEnvironment>(new HostingEnvironment
+            {
+                EnvironmentName = Environments.Development,
+                ApplicationName = "ShopTARge24.RealEstateTest",
+                ContentRootPath = AppContext.BaseDirectory
+            });
+
             services.AddScoped<IRealEstateServices, RealEstateServices>();
             services.AddScoped<IFileServices, FileServices>();
 
             services.AddDbContext<ShopTARge24Context>(x =>
             {
-                x.UseInMemoryDatabase("Test");
+                x.UseInMemoryDatabase("TEST");
                 x.ConfigureWarnings(b => b.Ignore(InMemoryEventId.TransactionIgnoredWarning));
             });
             RegisterMacros(services);
