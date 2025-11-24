@@ -25,7 +25,17 @@ namespace ShopTARge24.ApplicationServices.Services
 
         public async Task<Kindergarten> Create(KindergartenDto dto)
             {
-                Kindergarten domain = new Kindergarten();
+            if (dto == null ||
+                string.IsNullOrWhiteSpace(dto.KindergartenName) ||
+                string.IsNullOrWhiteSpace(dto.GroupName) ||
+                string.IsNullOrWhiteSpace(dto.TeacherName) ||
+                dto.ChildCount == null ||
+                dto.CreatedAt == null)
+            {
+                return null;
+            }
+
+            Kindergarten domain = new Kindergarten();
 
                 domain.Id = Guid.NewGuid();
                 domain.KindergartenName = dto.KindergartenName;
