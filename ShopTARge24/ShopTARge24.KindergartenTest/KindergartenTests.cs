@@ -31,9 +31,9 @@ namespace ShopTARge24.KindergartenTest
             var result = await Svc<IKindergartenServices>().Create(dto);
 
             Assert.NotNull(result);
-            Assert.Null(result.KindergartenName);
-            Assert.Null(result.GroupName);
-            Assert.Null(result.TeacherName);
+            Assert.Null(dto.KindergartenName);
+            Assert.Null(dto.GroupName);
+            Assert.Null(dto.TeacherName);
         }
 
         [Fact]
