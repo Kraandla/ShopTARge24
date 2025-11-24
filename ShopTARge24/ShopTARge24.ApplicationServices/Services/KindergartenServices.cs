@@ -48,10 +48,11 @@ namespace ShopTARge24.ApplicationServices.Services
 
             public async Task<Kindergarten> Update(KindergartenDto dto)
             {
+                var domain = await _context.Kindergartens.FirstOrDefaultAsync(x => x.Id == dto.Id);
                 //vaja leida doamini objekt, mida saaks mappida dto-ga
-                Kindergarten domain = new Kindergarten();
+                if (domain == null)
+                    return null;
 
-                domain.Id = (Guid)dto.Id;
                 domain.KindergartenName = dto.KindergartenName;
                 domain.GroupName = dto.GroupName;
                 domain.TeacherName = dto.TeacherName;
@@ -63,8 +64,7 @@ namespace ShopTARge24.ApplicationServices.Services
                 {
                     _fileServices.UploadFilesToDatabaseKindergarten(dto, domain);
                 }
-            //tuleb db-s teha andmete uuendamine jauue oleku salvestamine
-            _context.Kindergartens.Update(domain);
+
                 await _context.SaveChangesAsync();
 
                 return domain;

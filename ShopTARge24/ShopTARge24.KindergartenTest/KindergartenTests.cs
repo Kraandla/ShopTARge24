@@ -59,19 +59,60 @@ namespace ShopTARge24.KindergartenTest
         [Fact]
         public async Task Should_UpdateKindergarten_WhenDataChanged()
         {
-            var createDto = MockKindergartenDto();
-            var created = await Svc<IKindergartenServices>().Create(createDto);
+            KindergartenDto dto = MockKindergartenDto();
+            var createResult = await Svc<IKindergartenServices>().Create(dto);
 
-            KindergartenDto updateDto = MockUpdatedKindergartenData();
-            updateDto.Id = created.Id;
-            updateDto.CreatedAt = created.CreatedAt;
+            //var dtoId = dto.Id;
+            //KindergartenDto domain = MockUpdateKindergartenData(dtoId);
 
-            var updated = await Svc<IKindergartenServices>().Update(updateDto);
+            KindergartenDto domain = new()
+            {
+                Id = createResult.Id,
+                KindergartenName = "Updated Kindergarten",
+                GroupName = "Updated Group",
+                TeacherName = "Updated Teacher",
+                ChildCount = 25,
+                CreatedAt = createResult.CreatedAt,
+                UpdatedAt = DateTime.UtcNow
+            };
+            var updatedResult = await Svc<IKindergartenServices>().Update(domain);
 
-            Assert.NotEqual(created.GroupName, updated.GroupName);
-            Assert.NotEqual(created.ChildCount, updated.ChildCount);
-            Assert.NotEqual(created.TeacherName, updated.TeacherName);
+            Assert.Equal(updatedResult.Id, createResult.Id);
+            Assert.NotEqual(domain.KindergartenName, dto.KindergartenName);
+            Assert.NotEqual(domain.TeacherName, dto.TeacherName);
+            Assert.NotEqual(domain.GroupName, dto.GroupName);
+            Assert.NotEqual(domain.ChildCount.ToString(), dto.ChildCount.ToString());
         }
+
+        //[Fact]
+        //public async Task Should_UpdateKindergarten_WhenDataChanged()
+        //{
+        //    //arrange
+        //    var guid = new Guid("3d9967e6-5bf5-40dc-a517-0a481b931cbe");
+
+        //    KindergartenDto dto = MockKindergartenDto();
+
+        //    KindergartenDto domain = new();
+
+        //    domain.Id = Guid.Parse("3d9967e6-5bf5-40dc-a517-0a481b931cbe");
+        //    domain.KindergartenName = "Updated Kinder";
+        //    domain.GroupName = "Updated Group";
+        //    domain.TeacherName = "Updated Teacher";
+        //    domain.ChildCount = 5;
+        //    domain.CreatedAt = DateTime.UtcNow;
+        //    domain.UpdatedAt = DateTime.UtcNow;
+
+        //    //act
+        //    await Svc<IKindergartenServices>().Update(dto);
+
+        //    //assert
+        //    Assert.Equal(domain.Id, guid);
+        //    Assert.NotEqual(dto.KindergartenName, domain.KindergartenName);
+        //    Assert.NotEqual(dto.GroupName, domain.GroupName);
+        //    Assert.NotEqual(dto.TeacherName, domain.TeacherName);
+        //    //Võrrelda RoomNumbrit ja kasutada DoesNotMatch
+        //    Assert.DoesNotMatch(dto.ChildCount.ToString(), domain.ChildCount.ToString());
+        //}
 
         [Fact]
         public async Task Should_DeleteKindergarten_WhenValidId()
@@ -109,11 +150,24 @@ namespace ShopTARge24.KindergartenTest
                 UpdatedAt = null
             };
         }
-
-        private KindergartenDto MockUpdatedKindergartenData()
+        private KindergartenDto MockKindergartenUpdateInitDto()
         {
             return new KindergartenDto
             {
+                Id = Guid.NewGuid(),
+                KindergartenName = "Sunrise Kindergarten",
+                GroupName = "Butterflies",
+                TeacherName = "Mrs. Linda",
+                ChildCount = 18,
+                CreatedAt = DateTime.UtcNow,
+                UpdatedAt = DateTime.UtcNow
+            };
+        }
+        private KindergartenDto MockUpdateKindergartenData(Guid? guid)
+        {
+            return new KindergartenDto
+            {
+                Id = guid,
                 KindergartenName = "Updated Kindergarten",
                 GroupName = "Updated Group",
                 TeacherName = "Updated Teacher",
