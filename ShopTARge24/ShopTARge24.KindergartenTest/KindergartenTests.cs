@@ -47,7 +47,44 @@ namespace ShopTARge24.KindergartenTest
             Assert.NotNull(result);
             Assert.Equal(created.Id, result.Id);
         }
+        [Fact]
+        public async Task Should_ReturnNull_WhenDetailIdDoesNotExist()
+        {
+            Guid wrongId = Guid.NewGuid();
+            var result = await Svc<IKindergartenServices>().DetailAsync(wrongId);
 
+            Assert.Null(result);
+        }
+
+        [Fact]
+        public async Task Should_UpdateKindergarten_WhenDataChanged()
+        {
+            var createDto = MockKindergartenDto();
+            var created = await Svc<IKindergartenServices>().Create(createDto);
+
+            KindergartenDto updateDto = MockUpdatedKindergartenData();
+            updateDto.Id = created.Id;
+            updateDto.CreatedAt = created.CreatedAt;
+
+            var updated = await Svc<IKindergartenServices>().Update(updateDto);
+
+            Assert.NotEqual(created.GroupName, updated.GroupName);
+            Assert.NotEqual(created.ChildCount, updated.ChildCount);
+            Assert.NotEqual(created.TeacherName, updated.TeacherName);
+        }
+
+        [Fact]
+        public async Task Should_DeleteKindergarten_WhenValidId()
+        {
+            KindergartenDto dto = MockKindergartenDto();
+            var created = await Svc<IKindergartenServices>().Create(dto);
+
+            var deleted = await Svc<IKindergartenServices>().Delete(created.Id);
+            var afterDelete = await Svc<IKindergartenServices>().DetailAsync(created.Id);
+
+            Assert.Equal(created.Id, deleted.Id);
+            Assert.Null(afterDelete);
+        }
         private KindergartenDto MockKindergartenDto()
         {
             return new KindergartenDto
@@ -70,6 +107,18 @@ namespace ShopTARge24.KindergartenTest
                 ChildCount = null,
                 CreatedAt = null,
                 UpdatedAt = null
+            };
+        }
+
+        private KindergartenDto MockUpdatedKindergartenData()
+        {
+            return new KindergartenDto
+            {
+                KindergartenName = "Updated Kindergarten",
+                GroupName = "Updated Group",
+                TeacherName = "Updated Teacher",
+                ChildCount = 25,
+                UpdatedAt = DateTime.UtcNow
             };
         }
     }
