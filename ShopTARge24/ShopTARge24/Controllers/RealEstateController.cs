@@ -4,6 +4,7 @@ using ShopTARge24.Core.Dto;
 using ShopTARge24.Core.ServiceInterface;
 using ShopTARge24.Data;
 using ShopTARge24.Models.RealEstate;
+using static System.Net.Mime.MediaTypeNames;
 
 
 namespace ShopTARge24.Controllers
@@ -130,16 +131,27 @@ namespace ShopTARge24.Controllers
                 Location = vm.Location,
                 CreatedAt = vm.CreatedAt,
                 ModifiedAt = vm.ModifiedAt,
+                Files = vm.Files,
+                Image =vm.Image
+                    .Select(x => new FileToDatabaseDto
+                    {
+                        Id = x.ImageId,
+                        ImageData = x.ImageData,
+                        ImageTitle = x.ImageTitle,
+                        RealEstateId = x.RealEstateId
+                    }).ToArray()
             };
 
             var result = await _realEstateServices.Update(dto);
+
+            var realEstateId = result.Id;
 
             if (result == null)
             {
                 return RedirectToAction(nameof(Index));
             }
 
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(Update), new { id = realEstateId });
         }
 
         [HttpGet]
