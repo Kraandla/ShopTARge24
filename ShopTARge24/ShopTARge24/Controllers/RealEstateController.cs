@@ -85,10 +85,11 @@ namespace ShopTARge24.Controllers
 
             if (realEstate == null)
             {
-                return NotFound();
+                return View("NotFound", id);
             }
 
-            RealEstateImageViewModel[] images = await GetImageFromDatabase(id);
+            RealEstateImageViewModel[] images = await FileFromDatabase(id);
+
 
             var vm = new RealEstateCreateUpdateViewModel();
 
@@ -135,10 +136,10 @@ namespace ShopTARge24.Controllers
 
             if (realEstate == null)
             {
-                return NotFound();
+                return View("NotFound", id);
             }
 
-            RealEstateImageViewModel[] images = await GetImageFromDatabase(id);
+            RealEstateImageViewModel[] images = await FileFromDatabase(id);
 
             var vm = new RealEstateDeleteViewModel();
 
@@ -175,10 +176,10 @@ namespace ShopTARge24.Controllers
 
             if (realEstate == null)
             {
-                return NotFound();
+                return View("NotFound", id);
             }
 
-            RealEstateImageViewModel[] images = await GetImageFromDatabase(id);
+            RealEstateImageViewModel[] images = await FileFromDatabase(id);
 
             var vm = new RealEstateDetailsViewModel();
 
@@ -189,12 +190,12 @@ namespace ShopTARge24.Controllers
             vm.Location = realEstate.Location;
             vm.CreatedAt = realEstate.CreatedAt;
             vm.ModifiedAt = realEstate.ModifiedAt;
-            vm.Image.AddRange(images);
+            vm.Images.AddRange(images);
 
             return View(vm);
         }
 
-        private async Task<RealEstateImageViewModel[]> GetImageFromDatabase(Guid id)
+        private async Task<RealEstateImageViewModel[]> FileFromDatabase(Guid id)
         {
             return await _context.FileToDatabases
                 .Where(x => x.RealEstateId == id)
@@ -205,7 +206,6 @@ namespace ShopTARge24.Controllers
                     ImageData = y.ImageData,
                     ImageTitle = y.ImageTitle,
                     Image = string.Format("data:image/gif;base64,{0}", Convert.ToBase64String(y.ImageData))
-
                 }).ToArrayAsync();
         }
     }

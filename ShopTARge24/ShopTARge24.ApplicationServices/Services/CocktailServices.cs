@@ -1,15 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata;
-using Newtonsoft.Json;
-using ShopTARge24.Core.Dto;
-using ShopTARge24.Core.Dto.AccuWeather;
+﻿using Nancy.Json;
+using ShopTARge24.Core.Dto.CocktailDtos;
 using ShopTARge24.Core.ServiceInterface;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Text;
 using System.Text.Json;
-using System.Threading.Tasks;
+
 
 namespace ShopTARge24.ApplicationServices.Services
 {
@@ -17,21 +10,30 @@ namespace ShopTARge24.ApplicationServices.Services
     {
         private readonly HttpClient _httpClient;
 
-        public CocktailServices(HttpClient httpClient)
+        public CocktailServices
+            (
+                HttpClient httpClient
+            )
         {
             _httpClient = httpClient;
         }
 
-        public async Task<Root> GetDrink(string strDrink)
+        public async Task<CocktailRootDto> GetCocktails(CocktailResultDto dto)
         {
-            var baseUrl = "https://www.thecocktaildb.com/api/json/v1/1/search.php?s=";
+            string apiKey = "1";
+            var response = await _httpClient.GetAsync($"https://www.thecocktaildb.com/api/json/v1/{apiKey}/search.php?s={dto.StrDrink}");
+            response.EnsureSuccessStatusCode();
 
-            var response = await _httpClient.GetAsync($"https://www.thecocktaildb.com/api/json/v1/1/search.php?s={strDrink}");
-            var jsonResponse = await response.Content.ReadAsStringAsync();
+            var json = await response.Content.ReadAsStringAsync();
 
-            var drinkData = JsonConvert.DeserializeObject<Root>(jsonResponse);
+            var options = new JsonSerializerOptions
+            {
+                PropertyNameCaseInsensitive = true
+            };
 
-            return drinkData;
+            var cocktail = JsonSerializer.Deserialize<CocktailRootDto>(json, options);
+
+            return cocktail!;
         }
     }
 }

@@ -1,22 +1,21 @@
-﻿@model ShopTARge24.Core.Dto.Root
+﻿@model ShopTARge24.Models.Cocktail.SearchCocktailViewModel
 
-<h2>Drinks search</h2>
+<h1>Search Cocktail</h1>
 
-
-<form asp-action="Search" method="post">
-    <input type="text" name="drinkName" placeholder="Enter drink name" />
-    <button type="submit">Search</button>
-</form>
-
-@if (Model?.drinks != null)
-{
-    <ul>
-        @foreach (var drink in Model.drinks)
-        {
-            <li>
-                <strong>@drink.strDrink</strong> - @drink.strCategory
-            </li>
-        }
-    </ul>
-}
-
+<div class="container">
+    <form method="post">
+        <div class="container">
+            <div class="form-group col-md-offset-3 col-md-5">
+                <h2>Find your favorite cocktail</h2>
+                <label asp-for="SearchCocktail" style="font-family: Arial"></label>
+                <input asp-for="SearchCocktail" class="form-control" />
+                <span asp-validation-for="SearchCocktail" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="container">
+            <div class="form-group col-md-offset-3 col-md-5">
+                <button asp-controller="cocktails" asp-action="searchCocktails" class="btn btn-primary">Search</button>
+            </div>
+        </div>
+    </form>
+</div>

@@ -1,14 +1,10 @@
-﻿using ShopTARge24.Core.Dto;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using ShopTARge24.Core.Dto.CocktailDtos;
+
 
 namespace ShopTARge24.Core.ServiceInterface
 {
     public interface ICocktailServices
     {
-        Task<Root> GetDrink(string strDrink);
+        Task<CocktailRootDto> GetCocktails(CocktailResultDto dto);
     }
 }
