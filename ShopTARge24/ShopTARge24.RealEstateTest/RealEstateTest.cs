@@ -287,7 +287,7 @@ namespace ShopTARge24.RealEstateTest
             {
                 Area = null,
                 Location = null,
-                RoomNumber = null,
+                RoomNumber = 0,
                 BuildingType = null,
                 CreatedAt = null,
                 ModifiedAt = null
@@ -526,7 +526,7 @@ namespace ShopTARge24.RealEstateTest
                 Id = null,
                 Area = null,
                 Location = "",
-                RoomNumber = null,
+                RoomNumber = 0,
                 BuildingType = "",
                 CreatedAt = null,
                 ModifiedAt = null
