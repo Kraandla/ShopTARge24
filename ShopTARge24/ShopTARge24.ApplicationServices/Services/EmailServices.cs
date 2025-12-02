@@ -2,11 +2,12 @@
 using MimeKit;
 using ShopTARge24.Core.Dto;
 using MailKit.Net.Smtp;
+using ShopTARge24.Core.ServiceInterface;
 
 
 namespace ShopTARge24.ApplicationServices.Services
 {
-    public class EmailServices
+    public class EmailServices : IEmailServices
     {
         private readonly IConfiguration _config;
 

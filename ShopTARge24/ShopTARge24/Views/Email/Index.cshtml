@@ -1,7 +1,7 @@
 ﻿@model ShopTARge24.Models.Email.EmailViewModel
 
 <div>
-    <form method="post" enctype="multipart/form-data">
+    <form asp-action="SendEmail" asp-controller="Email" method="post" enctype="multipart/form-data">
 
         <div class="form-group row">
             <label asp-for="To" class="col-sm-2 col-form-label"></label>
@@ -26,9 +26,9 @@
 
         <div class="form-group row">
             <label asp-for="Attachment"></label>
-            <input asp-for="Attachment" class="form-control" multiple="multiple" type="file"/>
+            <input asp-for="Attachment" class="form-control" multiple="multiple" type="file" />
         </div>
 
-        <input asp-action="sendEmail" asp-controller="emails" type="submit" class="btn btn-primary" value="Send Email" />
+        <button type="submit" class="btn btn-primary">Send Email</button>
     </form>
 </div>
