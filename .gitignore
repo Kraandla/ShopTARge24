@@ -417,3 +417,4 @@ FodyWeavers.xsd
 *.msm
 *.msp
 /ShopTARge24/ShopTARge24.ApplicationServices/Services/WeatherForecastServices.cs
+/ShopTARge24/ShopTARge24/appsettings.json
