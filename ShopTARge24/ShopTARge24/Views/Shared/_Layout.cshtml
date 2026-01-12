@@ -1,8 +1,13 @@
-﻿@using Microsoft.AspNetCore.Identity;
-@inject SignInManager<ShopTARge24.Core.Domain.ApplicationUser> signInManager;
-@inject UserManager<ShopTARge24.Core.Domain.ApplicationUser> userManager;
+﻿@using Microsoft.AspNetCore.Identity
+@using ShopTARge24.Core.Domain
+@inject SignInManager<ApplicationUser> signInManager
+@inject UserManager<ApplicationUser> userManager
+@inherits Microsoft.AspNetCore.Mvc.Razor.RazorPage<dynamic>
 @{
     var user = await userManager.GetUserAsync(User);
+    var currentController = ViewContext.RouteData.Values["controller"]?.ToString();
+    var currentAction = ViewContext.RouteData.Values["action"]?.ToString();
+    var isHomePage = currentController == "Home" && currentAction == "Index";
 }
 
 <!DOCTYPE html>
@@ -11,111 +16,248 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - ShopTARge24</title>
-    <script type="importmap"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/ShopTARge24.styles.css" asp-append-version="true" />
+
+    <style>
+        html, body {
+            height: 100%;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(120deg, #f0f8ff, #e0f7fa);
+            color: #333;
+        }
+
+        main {
+            flex: 1;
+            padding-top: 2rem;
+            padding-bottom: 2rem;
+        }
+
+        .navbar {
+            background: linear-gradient(90deg, #ec4899, #f97316);
+        }
+
+            .navbar .navbar-brand,
+            .navbar .nav-link {
+                color: #fff !important;
+            }
+
+                .navbar .nav-link:hover {
+                    color: #fcd34d !important;
+                }
+
+        .dropdown-menu {
+            border-radius: 0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            background: #ffffff;
+            color: #1f2937;
+        }
+
+        .dropdown-item:hover {
+            background-color: #fde68a;
+        }
+
+        footer {
+            background: linear-gradient(90deg, #ec4899, #f97316);
+            color: #fff;
+            padding: 1.5rem 0;
+            text-align: center;
+        }
+
+            footer a {
+                color: #fff;
+                font-weight: bold;
+            }
+
+                footer a:hover {
+                    color: #fcd34d;
+                }
+
+        .card {
+            border: none;
+            border-radius: 1rem;
+            box-shadow: 0 6px 25px rgba(0,0,0,0.15);
+            transition: transform 0.3s, box-shadow 0.3s;
+            color: #fff;
+        }
+
+            .card:hover {
+                transform: translateY(-8px);
+                box-shadow: 0 12px 30px rgba(0,0,0,0.2);
+            }
+
+        .card-title {
+            font-weight: 600;
+            font-size: 1.3rem;
+        }
+
+        .card-text {
+            font-size: 0.95rem;
+        }
+
+        a.text-decoration-none {
+            color: inherit;
+        }
+
+        .btn-primary-custom {
+            background-color: #f43f5e;
+            border: none;
+            color: #fff;
+        }
+
+            .btn-primary-custom:hover {
+                background-color: #e11d48;
+            }
+
+        body::before {
+            content: "";
+            position: fixed;
+            top: -100px;
+            left: -100px;
+            width: 300px;
+            height: 300px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            filter: blur(80px);
+            z-index: -1;
+        }
+
+        body::after {
+            content: "";
+            position: fixed;
+            bottom: -120px;
+            right: -120px;
+            width: 400px;
+            height: 400px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            filter: blur(100px);
+            z-index: -1;
+        }
+    </style>
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">ShopTARge24</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        @if (signInManager.IsSignedIn(User))
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Spaceships" asp-action="Index">Spaceship</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="RealEstate" asp-action="Index">RealEstate</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="AccuWeathers" asp-action="Index">AccuWeathers</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="ChuckNorris" asp-action="Index">ChuckNorris</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Cocktails" asp-action="Index">Cocktails</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Email" asp-action="Index">Email</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Chat">Chat</a>
-                            </li>
-                        }
-                        else
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                            </li>
-                        }
-                    </ul>
-                    <ul class="navbar-nav">
-                        @if (signInManager.IsSignedIn(User))
-                        {
-                            <li class="nav-item dropdown">
-                                <div class="dropdown">
-                                    <button class="btn btn-group dropdown-toggle" type="button" id="dropDownMenu" data-bs-toggle="dropdown" aria-expanded="false">
-                                        Manage Account
-                                    </button>
-                                    <ul class="dropdown-menu" aria-labelledby="dropDownMenu">
-                                        <li>
-                                            <a class="dropdown-item" asp-controller="Accounts" asp-action="ChangePassword">Change Password</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </li>
-
-                            <li class="nav-item dropdown">
-                                <form method="post" asp-controller="Accounts" asp-action="Logout">
-                                    <button type="submit" class="nav-link btn btn-link py-0">
-                                        Logout @user.Name
-                                    </button>
-                                </form>
-                            </li>
-                        }
-                        else
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Accounts" asp-action="Register">Registration</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Accounts" asp-action="Login">Login</a>
-                            </li>
-                        }
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
-
-    <footer class="border-top footer text-muted">
+    <nav class="navbar navbar-expand-lg shadow-sm">
         <div class="container">
-            &copy; 2025 - ShopTARge24 - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">ShopTARge24</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent"
+                    aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item"><a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a></li>
+                </ul>
+                <ul class="navbar-nav ms-auto">
+                    @if (signInManager.IsSignedIn(User))
+                    {
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="accountDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                @user?.Name
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="accountDropdown">
+                                <li><a class="dropdown-item" asp-controller="Accounts" asp-action="ChangePassword">Change Password</a></li>
+                                <li>
+                                    <form method="post" asp-controller="Accounts" asp-action="Logout" class="dropdown-item p-0 m-0">
+                                        <button type="submit" class="btn btn-link w-100 text-start">Logout</button>
+                                    </form>
+                                </li>
+                            </ul>
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="nav-item"><a class="nav-link btn btn-primary-custom text-white px-3 ms-2" asp-area="" asp-controller="Accounts" asp-action="Register">Register</a></li>
+                        <li class="nav-item"><a class="nav-link btn btn-outline-light px-3 ms-2" asp-area="" asp-controller="Accounts" asp-action="Login">Login</a></li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main role="main" class="container py-4">
+        @RenderBody()
+        <main role="main" class="container py-4">
+            @if (signInManager.IsSignedIn(User) && isHomePage)
+            {
+                <h2 class="mb-4 text-center">Dashboard</h2>
+                <div class="row row-cols-1 row-cols-md-3 g-4">
+                    <div class="col">
+                        <a asp-area="" asp-controller="Spaceships" asp-action="Index" class="text-decoration-none">
+                            <div class="card h-100 text-center p-4" style="background: linear-gradient(135deg, #f97316, #facc15);">
+                                <h5 class="card-title">Spaceships</h5>
+                                <p class="card-text">Kosmoselaevade CRUD.</p>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col">
+                        <a asp-area="" asp-controller="RealEstate" asp-action="Index" class="text-decoration-none">
+                            <div class="card h-100 text-center p-4" style="background: linear-gradient(135deg, #3b82f6, #6366f1);">
+                                <h5 class="card-title">RealEstate</h5>
+                                <p class="card-text">RealEstate CRUD.</p>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col">
+                        <a asp-area="" asp-controller="AccuWeathers" asp-action="Index" class="text-decoration-none">
+                            <div class="card h-100 text-center p-4" style="background: linear-gradient(135deg, #10b981, #14b8a6);">
+                                <h5 class="card-title">AccuWeathers</h5>
+                                <p class="card-text">AccuWeathers api kutsumine.</p>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col">
+                        <a asp-area="" asp-controller="ChuckNorris" asp-action="Index" class="text-decoration-none">
+                            <div class="card h-100 text-center p-4" style="background: linear-gradient(135deg, #ec4899, #f43f5e);">
+                                <h5 class="card-title">ChuckNorris</h5>
+                                <p class="card-text">Chuck Norrise api kutsumine.</p>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col">
+                        <a asp-area="" asp-controller="Cocktails" asp-action="Index" class="text-decoration-none">
+                            <div class="card h-100 text-center p-4" style="background: linear-gradient(135deg, #f59e0b, #fbbf24);">
+                                <h5 class="card-title">Cocktails</h5>
+                                <p class="card-text">Kokteilide api kutsumine.</p>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col">
+                        <a asp-area="" asp-controller="Email" asp-action="Index" class="text-decoration-none">
+                            <div class="card h-100 text-center p-4" style="background: linear-gradient(135deg, #8b5cf6, #a78bfa);">
+                                <h5 class="card-title">Email</h5>
+                                <p class="card-text">Emailide saatmine.</p>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col">
+                        <a asp-area="" asp-controller="Home" asp-action="Chat" class="text-decoration-none">
+                            <div class="card h-100 text-center p-4" style="background: linear-gradient(135deg, #ec4899, #f472b6);">
+                                <h5 class="card-title">Chat</h5>
+                                <p class="card-text">Live chat.</p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            }
+        </main>
+
+    </main>
+
+    <footer>
+        <div class="container">
+            &copy; 2025 ShopTARge24 | <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>

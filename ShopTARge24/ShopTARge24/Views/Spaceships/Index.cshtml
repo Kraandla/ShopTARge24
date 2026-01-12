@@ -4,42 +4,84 @@
     int rowNumber = 1;
 }
 
-<div>
-    <a asp-action="create" asp-controller="Spaceships" type="submit" class="btn btn-primary">Create</a>
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h1 class="text-primary">Spaceships</h1>
+    <a asp-action="create" asp-controller="Spaceships" class="btn btn-gradient-primary">Create</a>
 </div>
 
-<div class="h1">
-    Spaceships
-</div>
 <form method="get">
-    <table class="table table-hover">
-        <thead>
+    <table class="table table-hover table-striped align-middle">
+        <thead class="table-dark">
             <tr>
-                <th scope="col">Nr</th>
+                <th scope="col">#</th>
                 <th scope="col">Name</th>
                 <th scope="col">Type</th>
                 <th scope="col">Built Date</th>
                 <th scope="col">Crew</th>
-                <th scope="col"></th>
+                <th scope="col">Actions</th>
             </tr>
         </thead>
         <tbody>
             @foreach (var spaceship in Model)
-                {
-                    <tr>
-                        <td>@rowNumber</td>
-                        <td>@spaceship.Name</td>
-                        <td>@spaceship.Classification</td>
-                        <td>@spaceship.BuiltDate</td>
-                        <td>@spaceship.Crew</td>
-                        <td>
-                            <a asp-action="details" asp-controller="spaceships" asp-route-id="@spaceship.Id" class="btn btn-primary">Details</a>
-                            <a asp-action="update" asp-controller="spaceships" asp-route-id="@spaceship.Id" class="btn btn-primary">Update</a>
-                            <a asp-action="delete" asp-controller="spaceships" asp-route-id="@spaceship.Id" class="btn btn-outline-danger">Delete</a>
-                        </td>
+            {
+                <tr>
+                    <td>@rowNumber</td>
+                    <td>@spaceship.Name</td>
+                    <td>@spaceship.Classification</td>
+                    <td>@spaceship.BuiltDate</td>
+                    <td>@spaceship.Crew</td>
+                    <td class="d-flex gap-2">
+                        <a asp-action="details" asp-controller="Spaceships" asp-route-id="@spaceship.Id" class="btn btn-sm btn-gradient-info">Details</a>
+                        <a asp-action="update" asp-controller="Spaceships" asp-route-id="@spaceship.Id" class="btn btn-sm btn-gradient-warning">Update</a>
+                        <a asp-action="delete" asp-controller="Spaceships" asp-route-id="@spaceship.Id" class="btn btn-sm btn-gradient-danger">Delete</a>
+                    </td>
                 </tr>
-                rowNumber += 1;
+                rowNumber++;
             }
         </tbody>
     </table>
 </form>
+
+<style>
+    .btn-gradient-primary {
+        background: linear-gradient(135deg, #f97316, #facc15);
+        border: none;
+        color: #fff;
+        transition: transform 0.2s;
+    }
+
+        .btn-gradient-primary:hover {
+            transform: translateY(-2px);
+            opacity: 0.9;
+        }
+
+    .btn-gradient-info {
+        background: linear-gradient(135deg, #3b82f6, #6366f1);
+        border: none;
+        color: #fff;
+    }
+
+        .btn-gradient-info:hover {
+            opacity: 0.9;
+        }
+
+    .btn-gradient-warning {
+        background: linear-gradient(135deg, #f59e0b, #fbbf24);
+        border: none;
+        color: #fff;
+    }
+
+        .btn-gradient-warning:hover {
+            opacity: 0.9;
+        }
+
+    .btn-gradient-danger {
+        background: linear-gradient(135deg, #ec4899, #f43f5e);
+        border: none;
+        color: #fff;
+    }
+
+        .btn-gradient-danger:hover {
+            opacity: 0.9;
+        }
+</style>
