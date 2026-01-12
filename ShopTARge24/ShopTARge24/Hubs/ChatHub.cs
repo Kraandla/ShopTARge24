@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.SignalR;
 
-namespace SignalRChat.Hubs
+namespace ShopTARge24.Hubs
 {
     public class ChatHub : Hub
     {

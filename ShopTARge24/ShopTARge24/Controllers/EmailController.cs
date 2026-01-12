@@ -21,12 +21,6 @@ namespace ShopTARge24.Controllers
             return View();
         }
 
-        [HttpGet]
-        public IActionResult SendEmail()
-        {
-            return View();
-        }
-
         [HttpPost]
         public IActionResult SendEmail(EmailViewModel vm)
         {

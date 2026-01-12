@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ShopTARge24.Models;
 
@@ -13,12 +14,19 @@ namespace ShopTARge24.Controllers
             _logger = logger;
         }
 
+        [AllowAnonymous]
         public IActionResult Index()
         {
             return View();
         }
 
+        [AllowAnonymous]
         public IActionResult Privacy()
+        {
+            return View();
+        }
+
+        public IActionResult Chat()
         {
             return View();
         }
